@@ -66,93 +66,96 @@ const NavigationBar = () => {
   };
 
   return (
-    <AppBar
-      position="fixed"
-      sx={{ backgroundColor: "#e4eef6", boxShadow: "none" }}
-    >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Typography
-          variant="h4"
-          component="div"
-          sx={{ color: "black", flexGrow: 1, textAlign: "left" }}
-        >
-          SpotifySocial
-        </Typography>
-        {isMobile ? (
-          <IconButton
-            color="black"
-            aria-label="menu"
-            edge="end"
-            onClick={toggleDrawer}
+    <>
+      <AppBar
+        position="fixed"
+        sx={{ backgroundColor: "#e4eef6", boxShadow: "none" }}
+      >
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography
+            variant="h4"
+            component="div"
+            sx={{ color: "black", flexGrow: 1, textAlign: "left" }}
           >
-            <MenuIcon fontSize="large" />
-          </IconButton>
-        ) : (
-          <div>
-            <Button
-              component={RouterLink}
-              to="/"
-              color="inherit"
-              sx={{ marginRight: "12px" }}
+            SpotifySocial
+          </Typography>
+          {isMobile ? (
+            <IconButton
+              color="black"
+              aria-label="menu"
+              edge="end"
+              onClick={toggleDrawer}
             >
+              <MenuIcon fontSize="large" />
+            </IconButton>
+          ) : (
+            <div>
+              <Button
+                component={RouterLink}
+                to="/"
+                color="inherit"
+                sx={{ marginRight: "12px" }}
+              >
+                <StyledHomeIcon
+                  fontSize="large"
+                  className={location.pathname === "/" ? "active" : ""}
+                />
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/my-music"
+                color="inherit"
+                sx={{ marginRight: "12px" }}
+              >
+                <StyledLibraryMusicIcon
+                  className={location.pathname === "/my-music" ? "active" : ""}
+                  fontSize="large"
+                />
+              </Button>
+              <Button component={RouterLink} to="/profile" color="inherit">
+                <StyledAccountBoxIcon
+                  className={location.pathname === "/profile" ? "active" : ""}
+                  fontSize="large"
+                />
+              </Button>
+            </div>
+          )}
+        </Toolbar>
+        <Drawer
+          PaperProps={{
+            sx: {
+              backgroundColor: "#e4eef6",
+            },
+          }}
+          anchor="right"
+          open={isDrawerOpen}
+          onClose={toggleDrawer}
+        >
+          <List sx={{ width: 150 }} onClick={toggleDrawer}>
+            <ListItem button component={RouterLink} to="/">
               <StyledHomeIcon
                 fontSize="large"
                 className={location.pathname === "/" ? "active" : ""}
               />
-            </Button>
-            <Button
-              component={RouterLink}
-              to="/my-music"
-              color="inherit"
-              sx={{ marginRight: "12px" }}
-            >
+            </ListItem>
+
+            <ListItem button component={RouterLink} to="/my-music">
               <StyledLibraryMusicIcon
                 className={location.pathname === "/my-music" ? "active" : ""}
                 fontSize="large"
               />
-            </Button>
-            <Button component={RouterLink} to="/profile" color="inherit">
+            </ListItem>
+            <ListItem button component={RouterLink} to="/profile">
               <StyledAccountBoxIcon
                 className={location.pathname === "/profile" ? "active" : ""}
                 fontSize="large"
               />
-            </Button>
-          </div>
-        )}
-      </Toolbar>
-      <Drawer
-        PaperProps={{
-          sx: {
-            backgroundColor: "#e4eef6",
-          },
-        }}
-        anchor="right"
-        open={isDrawerOpen}
-        onClose={toggleDrawer}
-      >
-        <List sx={{ width: 150 }} onClick={toggleDrawer}>
-          <ListItem button component={RouterLink} to="/">
-            <StyledHomeIcon
-              fontSize="large"
-              className={location.pathname === "/" ? "active" : ""}
-            />
-          </ListItem>
-
-          <ListItem button component={RouterLink} to="/my-music">
-            <StyledLibraryMusicIcon
-              className={location.pathname === "/my-music" ? "active" : ""}
-              fontSize="large"
-            />
-          </ListItem>
-          <ListItem button component={RouterLink} to="/profile">
-            <StyledAccountBoxIcon
-              className={location.pathname === "/profile" ? "active" : ""}
-              fontSize="large"
-            />
-          </ListItem>
-        </List>
-      </Drawer>
-    </AppBar>
+            </ListItem>
+          </List>
+        </Drawer>
+      </AppBar>
+      <Toolbar />
+    </>
   );
 };
 
