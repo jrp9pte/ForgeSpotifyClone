@@ -1,10 +1,37 @@
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 import { Link as RouterLink } from "react-router-dom";
 
 const NavigationBar = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -18,69 +45,96 @@ const NavigationBar = () => {
         >
           My Music App
         </Typography>
-        <div>
-          <Button
-            component={RouterLink}
-            to="/"
+        {isMobile ? (
+          <IconButton
             color="inherit"
-            sx={{
-              mx: 1,
-              textTransform: "none",
-              textDecoration: "none",
-              "&:hover": {
-                textDecoration: "underline",
-              },
-            }}
+            aria-label="menu"
+            edge="end"
+            onClick={toggleDrawer}
           >
-            Discover
-          </Button>
-          <Button
-            component={RouterLink}
-            to="/search"
-            color="inherit"
-            sx={{
-              mx: 1,
-              textTransform: "none",
-              textDecoration: "none",
-              "&:hover": {
-                textDecoration: "underline",
-              },
-            }}
-          >
-            Search
-          </Button>
-          <Button
-            component={RouterLink}
-            to="/my-music"
-            color="inherit"
-            sx={{
-              mx: 1,
-              textTransform: "none",
-              textDecoration: "none",
-              "&:hover": {
-                textDecoration: "underline",
-              },
-            }}
-          >
-            My Music
-          </Button>
-          <Button
-            component={RouterLink}
-            to="/profile"
-            color="inherit"
-            sx={{
-              mx: 1,
-              textTransform: "none",
-              textDecoration: "none",
-              "&:hover": {
-                textDecoration: "underline",
-              },
-            }}
-          >
-            Profile
-          </Button>
-        </div>
+            <MenuIcon />
+          </IconButton>
+        ) : (
+          <div>
+            <Button
+              component={RouterLink}
+              to="/"
+              color="inherit"
+              sx={{
+                mx: 1,
+                textTransform: "none",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              Discover
+            </Button>
+            <Button
+              component={RouterLink}
+              to="/search"
+              color="inherit"
+              sx={{
+                mx: 1,
+                textTransform: "none",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              Search
+            </Button>
+            <Button
+              component={RouterLink}
+              to="/my-music"
+              color="inherit"
+              sx={{
+                mx: 1,
+                textTransform: "none",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              My Music
+            </Button>
+            <Button
+              component={RouterLink}
+              to="/profile"
+              color="inherit"
+              sx={{
+                mx: 1,
+                textTransform: "none",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              Profile
+            </Button>
+          </div>
+        )}
       </Toolbar>
+      <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
+        <List sx={{ width: 250 }} onClick={toggleDrawer}>
+          <ListItem button component={RouterLink} to="/">
+            <ListItemText primary="Discover" />
+          </ListItem>
+          <ListItem button component={RouterLink} to="/search">
+            <ListItemText primary="Search" />
+          </ListItem>
+          <ListItem button component={RouterLink} to="/my-music">
+            <ListItemText primary="My Music" />
+          </ListItem>
+          <ListItem button component={RouterLink} to="/profile">
+            <ListItemText primary="Profile" />
+          </ListItem>
+        </List>
+      </Drawer>
     </AppBar>
   );
 };
