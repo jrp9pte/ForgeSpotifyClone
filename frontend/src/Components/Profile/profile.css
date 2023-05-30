@@ -1,3 +1,19 @@
 #settingsButton {
-    margin-right: 20px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#userAvatar {
+    width: 15vw;
+    height: 15vw;
+    margin-left: 40px;
+    margin-right: 2vw;
+}
+
+#profileLabel {
+    font-size: calc(2vw);
+}
+
+#usernameLabel {
+    font-size: calc(6vw);
 }

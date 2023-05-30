@@ -1,5 +1,5 @@
 import './profile.css';
-import { Stack, Box, IconButton, Avatar } from '@mui/material';
+import { Stack, Box, IconButton, Avatar, Typography } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 function Profile() {
@@ -11,11 +11,13 @@ function Profile() {
           <SettingsIcon fontSize="inherit"/>
         </IconButton>
       </Stack>
-      <Box>
-        <Avatar id='userAvatar'>
-
-        </Avatar>
-      </Box>
+      <Stack direction='row'>
+        <Avatar id='userAvatar' />
+        <Stack direction='column' justifyContent='center' alignItems='start'>
+          <Typography id='profileLabel' variant='h6'>Profile</Typography>
+          <Typography id='usernameLabel' variant='h3'>Username</Typography>
+        </Stack>
+      </Stack>
     </>
   );
 }
