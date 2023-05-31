@@ -1,28 +1,18 @@
 var express = require('express');
-var app = express();
-var redirect_uri = 'http://localhost:9000/login';
+const querystring = require('querystring');
 var router = express.Router();
 const db = require("./firebase")
 const  {deleteDoc, updateDoc, setDoc, getDocs, collection, doc} = require("firebase/firestore")
-const client_id = process.env_REACT_APP_Client_id
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-app.get('/spotifyAuthorize', function(req,res) {
-  var state = generateRandomString(16);
-  var scope = "user-top-read";
-  res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
-      response_type: 'code',
-      client_id: client_id,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state
-    }));
-  
-
+router.get('/spotifyAuthorize', async (req,res) =>{
+  const client_id = process.env.REACT_APP_Client_id
+  console.log(client_id)
+  res.send(client_id);
   
 })
 
