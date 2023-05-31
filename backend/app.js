@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 
 var topArtistsRouter = require('./routes/topArtists');
 var topSongsRouter = require('./routes/topSongs');
+var topRecsRouter = require('./routes/topRecs');
 
 const bodyParser = require('body-parser');
 var app = express();
@@ -36,6 +37,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/topArtists', topArtistsRouter)
 app.use('/topSongs', topSongsRouter)
+app.use('/topRecs', topRecsRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
