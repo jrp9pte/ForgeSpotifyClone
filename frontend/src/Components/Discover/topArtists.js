@@ -23,6 +23,7 @@ function TopArtists() {
             <Container
                 mxWidth='md'
                 style={{}}>
+
                 <Grid container spacing={4} justify='left'>
                     <Grid item >
                         <Card
