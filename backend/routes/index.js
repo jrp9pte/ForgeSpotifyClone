@@ -9,12 +9,15 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/spotifyAuthorize', async (req,res) =>{
-  const client_id = process.env.REACT_APP_Client_id
-  console.log(client_id)
-  res.send(client_id);
-  
-})
+
+router.get('/spotifyAuthorize', (req,res) =>{
+    const client_id = process.env.REACT_APP_Client_id
+    const scope = "user-top-read"
+    const redirect_uri= "http://localhost:3000/login"
+    
+    const url = "https://accounts.spotify.com/en/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&response_type=token&show_dialog=true"
+    res.redirect(url)
+  })
 
 router.get("/info", async (req, res, next) => {
   const allDocData = []

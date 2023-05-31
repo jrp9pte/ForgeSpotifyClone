@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import "./Login.css"
-
 const getReturnedParamsFromSpotifyAuth = (hash) =>{
     const stringAfterHashtag = hash.substring(1);
     const paramsInUrl = stringAfterHashtag.split("&")
@@ -14,11 +13,7 @@ const getReturnedParamsFromSpotifyAuth = (hash) =>{
 }
 
 function Login() {
-    const SCOPES = ["user-top-read"]
-    const SPACE_DELIMITR = "%20"
-    const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITR);
-    const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize"
-    const REDIRECT_URI= "http://localhost:3000/login"
+   
     useEffect(()=>{
         if (window.location.hash) {
             const {
@@ -26,21 +21,14 @@ function Login() {
                 expires_in,
                 token_type,
             }= getReturnedParamsFromSpotifyAuth(window.location.hash)
-            
         }
-    })
+    })        
 
-    const handleLogin = async(e) =>{
+    const handleLogin = (e) =>{
         e.preventDefault()
-        await fetch("http://localhost:9000/spotifyAuthorize")
-        .then((res)=>res.text())
-        .then((data)=>{
-            console.log(data)
-            window.location = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${data}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES_URL_PARAM}&response_type=token&show_dialog=true`;    
-        }) 
-
-        
+        window.location.href = "http://localhost:9000/spotifyAuthorize";    
     }
+
 
     return (
         <>
