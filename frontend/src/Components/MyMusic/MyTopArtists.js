@@ -585,7 +585,7 @@ function MyTopArtists() {
               </Select>
             </Grid>
             {selectedData.items.map((artist) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={artist.id}>
+              <Grid item xs={12} sm={6} md={3} lg={3} key={artist.id}>
                 <Card style={{ height: "100%" }}>
                   <CardMedia
                     style={{ paddingTop: "56.35%" }}

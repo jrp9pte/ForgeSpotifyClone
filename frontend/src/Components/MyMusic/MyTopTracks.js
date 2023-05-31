@@ -3359,7 +3359,7 @@ function MyTopTracks() {
               </Select>
             </Grid>
             {selectedData.items.map((track) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={track.id}>
+              <Grid item xs={12} sm={6} md={3} lg={3} key={track.id}>
                 <Card style={{ height: "100%" }}>
                   <CardMedia
                     style={{ paddingTop: "56.35%" }}

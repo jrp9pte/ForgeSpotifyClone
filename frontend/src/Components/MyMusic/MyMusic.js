@@ -11,6 +11,8 @@ const MyMusic = () => {
       <MyTopArtists />
       <h2>My Top Tracks</h2>
       <MyTopTracks />
+      <h2>My Liked Songs</h2>
+      <MyLikedSongs />
     </div>
   );
 };
