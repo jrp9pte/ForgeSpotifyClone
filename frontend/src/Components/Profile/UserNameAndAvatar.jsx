@@ -1,9 +1,10 @@
-import { Stack, Avatar, Typography } from "@mui/material";
+import './profile.css'
+import { Stack, Avatar, Typography, Paper } from "@mui/material";
 
 function UserNameAndAvatar() {
 	return (
-		<Stack direction="row">
-			<Avatar id="userAvatar" />
+		<Stack direction="row" mb='75px'>
+			<Avatar component={Paper} elevation={10} id="userAvatar" />
 			<Stack
 				direction="column"
 				justifyContent="center"

@@ -64,6 +64,26 @@ function Settings({ state, dispatch }) {
 						justifyContent="space-between"
 						sx={{ width: "100%" }}
 					>
+						<Typography variant="h5">
+							Display Top Artists
+						</Typography>
+						<Switch
+							sx={switchStyle}
+							checked={showTopArtists}
+							onChange={() =>
+								dispatch({ type: "toggleShowTopArtists" })
+							}
+						/>
+					</Stack>
+				</ListItem>
+				<Divider variant="middle" id="settingsDivider" />
+				<ListItem>
+					<Stack
+						id="setting"
+						direction="row"
+						justifyContent="space-between"
+						sx={{ width: "100%" }}
+					>
 						<Typography variant="h5">Display Top Songs</Typography>
 						<Switch
 							sx={switchStyle}
@@ -90,26 +110,6 @@ function Settings({ state, dispatch }) {
 							checked={showLikedSongs}
 							onChange={() =>
 								dispatch({ type: "toggleShowLikedSongs" })
-							}
-						/>
-					</Stack>
-				</ListItem>
-				<Divider variant="middle" id="settingsDivider" />
-				<ListItem>
-					<Stack
-						id="setting"
-						direction="row"
-						justifyContent="space-between"
-						sx={{ width: "100%" }}
-					>
-						<Typography variant="h5">
-							Display Top Artists
-						</Typography>
-						<Switch
-							sx={switchStyle}
-							checked={showTopArtists}
-							onChange={() =>
-								dispatch({ type: "toggleShowTopArtists" })
 							}
 						/>
 					</Stack>
