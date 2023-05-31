@@ -14,7 +14,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Discover />} />
       </Routes>
-      <TopArtists></TopArtists>
     </div>
   );
 }

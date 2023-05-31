@@ -8,8 +8,11 @@ const Discover = () => {
       <h1>Discover</h1>
       <h2>Users</h2>
       <Users />
-      <h2>Top Artists</h2>
+      <h2>New Releases</h2>
       <TopArtists />
+ 
+  
+
     </div>
   );
 };
