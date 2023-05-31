@@ -7,7 +7,7 @@ const  {deleteDoc, updateDoc, setDoc, getDocs, collection, doc} = require("fireb
 
 
 
-outer.get('/topArtists', async (req, res, next) => {
+router.get('/topArtists', async (req, res, next) => {
     try {
       // Make a call to the Spotify API to retrieve the user's top artists
       const response = await axios.get(
