@@ -4,16 +4,40 @@
 }
 
 #userAvatar {
-    width: 15vw;
-    height: 15vw;
-    margin-left: 40px;
+    width: calc(70px + 10vw);
+    height: calc(70px + 10vw);
+    margin-left: 50px;
     margin-right: 2vw;
 }
 
 #profileLabel {
-    font-size: calc(2vw);
+    font-size: calc(14px + 2vw);
+
 }
 
 #usernameLabel {
-    font-size: calc(6vw);
+    font-size: calc(16px + 7vw);
+}
+
+#settingsButton {
+    transition: 0.2s;
+}
+
+#settingsButton:hover {
+    transform: rotate(-360deg);
+}
+
+#settingsLabel {
+    margin: calc(20px + 1vw);
+    font-size: calc(32px + 2vw);
+}
+
+#setting {
+    padding-left: calc(16px + 1vw);
+    padding-right: calc(16px + 1vw);
+}
+
+#settingsDivider {
+    margin-left: 50px;
+    margin-right: 50px;
 }
