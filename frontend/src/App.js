@@ -8,12 +8,11 @@ function App() {
   return (
     <div className="App">
       <NavigationBar></NavigationBar>
-      <TopArtists></TopArtists>
       <Box sx={{ marginTop: "100px" }}>
         <Routes>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/home" element={<TopArtists/>} />
+          <Route path="/profile" element={<Profile />} />          
         </Routes>
+        <TopArtists></TopArtists>
       </Box>
     </div>
   );
