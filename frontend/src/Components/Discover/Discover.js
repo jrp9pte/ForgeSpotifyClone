@@ -1,7 +1,7 @@
 import React from "react";
 import Users from "./Users";
 import TopArtists from "./topArtists";
-
+import NewReleases from "./newReleases";
 const Discover = () => {
   return (
     <div>
@@ -9,10 +9,7 @@ const Discover = () => {
       <h2>Users</h2>
       <Users />
       <h2>New Releases</h2>
-      <TopArtists />
- 
-  
-
+      <NewReleases />
     </div>
   );
 };
