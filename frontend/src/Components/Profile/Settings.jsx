@@ -6,7 +6,17 @@ import {
 	Switch,
 	Typography,
 	Stack,
-} from "@mui/material";
+} from "@mui/material"
+
+const switchStyle = {
+	borderRadius: 2,
+	"& .MuiSwitch-switchBase.Mui-checked": {
+		color: "#BB623E",
+	},
+	"& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+		backgroundColor: "#D79F88",
+	},
+}
 
 function Settings({ state, dispatch }) {
 	const {
@@ -15,9 +25,9 @@ function Settings({ state, dispatch }) {
 		showTopSongs,
 		showLikedSongs,
 		showTopArtists,
-	} = state;
+	} = state
 
-	console.log("showTopSongs", showTopSongs);
+	console.log("showTopSongs", showTopSongs)
 	return (
 		<Dialog
 			onClose={() => dispatch({ type: "toggleShowSettings" })}
@@ -38,6 +48,7 @@ function Settings({ state, dispatch }) {
 					>
 						<Typography variant="h5">Private Profile</Typography>
 						<Switch
+							sx={switchStyle}
 							checked={isPrivate}
 							onChange={() =>
 								dispatch({ type: "toggleIsPrivate" })
@@ -55,6 +66,7 @@ function Settings({ state, dispatch }) {
 					>
 						<Typography variant="h5">Display Top Songs</Typography>
 						<Switch
+							sx={switchStyle}
 							checked={showTopSongs}
 							onChange={() =>
 								dispatch({ type: "toggleShowTopSongs" })
@@ -74,6 +86,7 @@ function Settings({ state, dispatch }) {
 							Display Liked Songs
 						</Typography>
 						<Switch
+							sx={switchStyle}
 							checked={showLikedSongs}
 							onChange={() =>
 								dispatch({ type: "toggleShowLikedSongs" })
@@ -93,6 +106,7 @@ function Settings({ state, dispatch }) {
 							Display Top Artists
 						</Typography>
 						<Switch
+							sx={switchStyle}
 							checked={showTopArtists}
 							onChange={() =>
 								dispatch({ type: "toggleShowTopArtists" })
@@ -102,7 +116,7 @@ function Settings({ state, dispatch }) {
 				</ListItem>
 			</List>
 		</Dialog>
-	);
+	)
 }
 
-export default Settings;
+export default Settings

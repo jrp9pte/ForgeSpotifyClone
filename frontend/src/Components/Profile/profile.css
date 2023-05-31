@@ -4,23 +4,23 @@
 }
 
 #userAvatar {
-    width: calc(70px + 10vw);
-    height: calc(70px + 10vw);
-    margin-left: 50px;
+    width: calc(70px + 8vw);
+    height: calc(70px + 8vw);
+    margin-left: calc(50px + 1vw);
     margin-right: 2vw;
 }
 
 #profileLabel {
-    font-size: calc(14px + 2vw);
+    font-size: calc(14px + 1.5vw);
 
 }
 
 #usernameLabel {
-    font-size: calc(16px + 7vw);
+    font-size: calc(16px + 6vw);
 }
 
 #settingsButton {
-    transition: 0.2s;
+    transition: 0.4s;
 }
 
 #settingsButton:hover {
