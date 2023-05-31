@@ -13,7 +13,7 @@ var topArtistsRouter = require('./routes/topArtists');
 const bodyParser = require('body-parser');
 var app = express();
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
@@ -50,5 +50,19 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.get('/spotifyAuthorize', (req,res) =>{
+//   const client_id = process.env.REACT_APP_Client_id
+//   const scope = "user-top-read"
+//   const redirect_uri= "http://localhost:3000/login"
+//   res.redirect('https://accounts.spotify.com/authorize?' +
+//     querystring.stringify({
+//       response_type: 'code',
+//       client_id: client_id,
+//       scope: scope,
+//       redirect_uri: redirect_uri,
+//     }));
+// })
+
 
 module.exports = app;
