@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useContext, useReducer } from "react"
 import "./profile.css"
 import { Stack, IconButton, Typography, Box } from "@mui/material"
 import SettingsIcon from "@mui/icons-material/Settings"
@@ -7,8 +7,11 @@ import UserNameAndAvatar from "./UserNameAndAvatar"
 import MyTopTracks from "../MyMusic/MyTopTracks"
 import MyLikedSongs from "../MyMusic/MyLikedSongs"
 import MyTopArtists from "../MyMusic/MyTopArtists"
+import { UserContext } from "../Login/UserProvider"
 
 function Profile() {
+	const { user } = useContext(UserContext)
+
 	const initialState = {
 		showSettings: false,
 		isPrivate: false,
@@ -19,6 +22,7 @@ function Profile() {
 	const reducer = (state, action) => {
 		switch (action.type) {
 			case "toggleShowSettings":
+				console.log(user)
 				return { ...state, showSettings: !state.showSettings }
 			case "toggleIsPrivate":
 				return { ...state, isPrivate: !state.isPrivate }
@@ -36,7 +40,7 @@ function Profile() {
 
 	return (
 		<>
-			<Box id='banner'>
+			<Box id="banner">
 				<Stack direction="row" justifyContent="flex-end">
 					<IconButton
 						id="settingsButton"
