@@ -1,6 +1,7 @@
 var express = require("express");
 const querystring = require("querystring");
 var router = express.Router();
+const axios = require('axios')
 const db = require("./firebase")
 require('firebase/auth')
 
@@ -15,16 +16,12 @@ router.get("/", function (req, res, next) {
 
 router.post('/login', async(req,res)=>{
   const {password, email} = req.body
-  // Need to make sure email and password exists within db
 
-  // Search through db, fetch the user with matching uid, res.send(uid, spotify access_token)
-
-  // login page, authorize with spotify
-
-  // For username, make a call to spotify API and store that username later
   try{
     const auth = getAuth()
     const userCredential = await signInWithEmailAndPassword(auth,email,password)
+    // Need to send error messages back stating invalid email, account already exists,
+    // invalid credentials
     console.log(userCredential)
     const q = query(collection(db,'User'), where('uid', "==", userCredential.user.uid))
     const querySnapshot = await getDocs(q)
@@ -64,6 +61,15 @@ router.post('/login', async(req,res)=>{
           }
           updateDoc(docref,update)
           res.send(result)
+          // const response =  axios.get("https://api.spotify.com/v1/me", {
+          //   headers: {
+          //     Authorization: `Bearer ${data.access_token}`,
+          //   },
+          // });
+          // const profile = response.data;
+          // console.log(profile)
+          // Using new access token, call to spotify and grab username to save to doc
+
         })
     } catch (err) {
       console.log(err);
@@ -147,7 +153,7 @@ router.post('/spotifycodes', async(req,res)=>{
 
 router.get('/spotifyAuthorize', (req,res) =>{
     const client_id = process.env.REACT_APP_Client_id
-    const scope = "user-top-read"
+    const scope = "user-top-read user-read-private user-read-email user-library-read";
     const redirect_uri= "http://localhost:3000/accountcreation"
     const url = "https://accounts.spotify.com/en/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&response_type=code&show_dialog=true"
     res.redirect(url)
