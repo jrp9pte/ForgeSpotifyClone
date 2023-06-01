@@ -4,10 +4,12 @@ const axios = require("axios");
 
 router.get("/", async (req, res) => {
   try {
+    const access_token = req.headers.authorization.split(" ")[1];
+
     // Make a call to the Spotify API to retrieve liked songs
     const response = await axios.get("https://api.spotify.com/v1/me/tracks", {
       headers: {
-        Authorization: `Bearer BQBA0087MKJb93Y98qBr3-i5ojxpsbJmr9teQ6ToF39R6Qr9rIWBw8F1qAfmOs2jWIYxdHfKCCcjVfsUBiPIWJVdY6L0NsQoJ4VWrMunb3e8dYmDgLyjMyUwNiJ2W34jvwhcWWT1lC0Gvl6DKkPDDAQKaUpTePpxHtn7Y_7AkptqLURRgYDtDHHCgYe1SfQap3y-_lZt16mHWcIv8BavGGqcEDxRqaWQ0Q4`,
+        Authorization: `Bearer ${access_token}`,
       },
       params: {
         limit: 8,

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   CssBaseline,
@@ -13,6 +12,8 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../Login/UserProvider";
 
 function MyTopArtists() {
   const API_URL = "http://localhost:9000";
@@ -22,12 +23,18 @@ function MyTopArtists() {
   const handleChange = (event) => {
     setSelectedTerm(event.target.value);
   };
-
+  const { user } = useContext(UserContext);
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${API_URL}/topArtists?time_range=${selectedTerm}`
+        `${API_URL}/topArtists?time_range=${selectedTerm}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
       );
+
       setSelectedData(response.data.topArtists);
     } catch (error) {
       console.error("Error retrieving top artists:", error);

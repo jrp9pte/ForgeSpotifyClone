@@ -4,11 +4,11 @@ const axios = require("axios");
 
 router.get("/", async (req, res) => {
   try {
-    const { access_token } = req.headers.authorization;
+    const access_token = req.headers.authorization.split(" ")[1];
     // Make a call to the Spotify API to retrieve the user profile
     const response = await axios.get("https://api.spotify.com/v1/me", {
       headers: {
-        Authorization: `Bearer BQDBGCV2QeEgJUlqflmDWPruREVmRnIoYLluRvLMC556ykEzMDsNrLXmLCqF1ijn6DDkjY2bYvhhkM_eRoMIFeBxbb3wrpRJZg57LqQ6jd0kP4BzFCcrqILU_qbaivlabvy-Vt2OhcmUfKrRntedFsT6Al721LIzeGX7i1r2vZIUA3WcNlPyDGispkIEzgMY_V_WLNt7FpOZQhF9WymhwS9NBu_jCBg3AQA`,
+        Authorization: `Bearer ${access_token}`,
       },
     });
 

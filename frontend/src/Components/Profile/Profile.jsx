@@ -1,4 +1,3 @@
-import { useReducer, useEffect, useState } from "react";
 import "./profile.css";
 import { Stack, IconButton, Typography, Box } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -8,14 +7,22 @@ import MyTopTracks from "../MyMusic/MyTopTracks";
 import MyLikedSongs from "../MyMusic/MyLikedSongs";
 import MyTopArtists from "../MyMusic/MyTopArtists";
 import axios from "axios";
+import React, { useState, useEffect, useContext, useReducer } from "react";
+import { UserContext } from "../Login/UserProvider";
 
 function Profile() {
+  const { user } = useContext(UserContext);
   const API_URL = "http://localhost:9000";
   const [selectedData, setSelectedData] = useState([]);
-
+  console.log(user);
+  console.log("what");
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_URL}/profile`);
+      const response = await axios.get(`${API_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      });
       setSelectedData(response.data.profile);
     } catch (error) {
       console.error("Error retrieving top artists:", error);
