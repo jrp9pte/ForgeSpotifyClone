@@ -2,6 +2,7 @@ import "./App.css";
 import { Box } from "@mui/system";
 import { Routes, Route } from "react-router-dom";
 import Profile from "./Components/Profile/Profile";
+import Discussion from "./Components/Discussion/Discussion";
 import NavigationBar from "./Components/Navigation/NavigationBar";
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </Box>
+      <Discussion />
     </div>
   );
 }
