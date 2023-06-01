@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
       "https://api.spotify.com/v1/browse/new-releases",
       {
         headers: {
-          Authorization: `Bearer BQD1FLE3Er0eWHuIrMMsflUBbhBk6cJIacOuC_eKGI1z-6CSWyk2MokOppSYWRxSXK_EHHIRUAbqLCp0s8LxE2hVrYzCmpeTzbzP59GKl274DP87Vr2MCm9kTeWPzYWiuGzhheVlXGLoirVBtPy1kADFTA6jqwR8gzZ_Z-n6eenpV0FlbnlQU8w6k3-g9OY_FWbEHGNr7_4`,
+          Authorization: `Bearer BQBA0087MKJb93Y98qBr3-i5ojxpsbJmr9teQ6ToF39R6Qr9rIWBw8F1qAfmOs2jWIYxdHfKCCcjVfsUBiPIWJVdY6L0NsQoJ4VWrMunb3e8dYmDgLyjMyUwNiJ2W34jvwhcWWT1lC0Gvl6DKkPDDAQKaUpTePpxHtn7Y_7AkptqLURRgYDtDHHCgYe1SfQap3y-_lZt16mHWcIv8BavGGqcEDxRqaWQ0Q4`,
         },
         params: {
           limit: 8,
