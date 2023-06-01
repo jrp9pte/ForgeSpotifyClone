@@ -100,7 +100,7 @@ function Settings({ state, dispatch }) {
 						id="setting"
 						direction="row"
 						justifyContent="space-between"
-						sx={{ width: "100%" }}
+						sx={{ width: "100%", mb: "35px" }}
 					>
 						<Typography variant="h5">
 							Display Liked Songs
