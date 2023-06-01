@@ -47,14 +47,10 @@ function UserAccountCreation() {
             if (res.data === "created!"){
                 window.location.href = "http://localhost:3000/login"
             }
+            else { // Need to display to UI that email already exists
+                alert("EMAIL EXISTS ALREADY")
+            }
         })
-        // Need to ensure email and password are all valid  
-        // Storing entered username and password to local storage to retrieve after url redirect
-        // window.addEventListener('beforeunload', function(event) {
-        //     window.localStorage.setItem("userName", username);
-        //     window.localStorage.setItem("userPassword", userPassword);
-        //     window.localStorage.setItem("userEmail", userEmail)
-        // })
     }
 
     // const logout =()=>{
