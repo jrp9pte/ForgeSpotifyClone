@@ -30,7 +30,7 @@ function SimpleDialog(props) {
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>[Diss]</DialogTitle>
+      <DialogTitle>{props.message}</DialogTitle>
       <List sx={{ pt: 0 }}>
         {emails.map((email) => (
           <ListItem disableGutters>
@@ -95,6 +95,8 @@ export default function SimpleDialogDemo(props) {
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
+        message={props.message}
+        replies={props.replies}
       />
     </div>
   );
