@@ -25,7 +25,6 @@ router.post('/savetodb',async(req,res) =>{
   });
   if (data.length === 0 ){
     res.send("created!")
-    console.log('hotdog')
     try{
       admin.auth().createUser({email:email, 
                                 password: password,
@@ -51,7 +50,6 @@ router.post('/savetodb',async(req,res) =>{
   }
 
   
-  // res.send("created!")
 })
 
 router.get('/spotifyAuthorize', (req,res) =>{
