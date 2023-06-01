@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) => {
       `https://api.spotify.com/v1/me/top/artists?time_range=${timeRange}&limit=8`,
       {
         headers: {
-          Authorization: `Bearer BQCVwpVEcNuZfqKxJT_lzHVZIWaKtq5tGikSPaaEGoymxsaLXMm1KF4IhGPtKf7wpcExF95_dtMaaiNxNeoVAXUCAi_rm4kjD95q_RmVmcMOmY8f1nyRXOPj9mxMdoYiwHAa3UI4FiBAFiyufd8b_qMHQbi430hwQvgCLzBfMK71eNZN5-NtQBNdxqQdsBuVKmL9zlL0x6o`,
+          Authorization: `Bearer BQD1FLE3Er0eWHuIrMMsflUBbhBk6cJIacOuC_eKGI1z-6CSWyk2MokOppSYWRxSXK_EHHIRUAbqLCp0s8LxE2hVrYzCmpeTzbzP59GKl274DP87Vr2MCm9kTeWPzYWiuGzhheVlXGLoirVBtPy1kADFTA6jqwR8gzZ_Z-n6eenpV0FlbnlQU8w6k3-g9OY_FWbEHGNr7_4`,
         },
       }
     );

@@ -1,38 +1,33 @@
-var express = require('express');
-var router = express.Router();
-const db = require("./firebase")
-const axios = require('axios');
-const { deleteDoc, updateDoc, setDoc, getDocs, collection, doc } = require("firebase/firestore")
+const express = require("express");
+const router = express.Router();
+const axios = require("axios");
 
-
-
-
-
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res) => {
   try {
-    // Make a call to the Spotify API to retrieve the user's top recommedations
+    // Make a call to the Spotify API to retrieve new releases
     const response = await axios.get(
-      'https://api.spotify.com/v1/browse/new-releases',
+      "https://api.spotify.com/v1/browse/new-releases",
       {
         headers: {
-          Authorization: `Bearer ${req.headers.authorization}`, // Use req.headers.authorization to access the Authorization header value
+          Authorization: `Bearer BQD1FLE3Er0eWHuIrMMsflUBbhBk6cJIacOuC_eKGI1z-6CSWyk2MokOppSYWRxSXK_EHHIRUAbqLCp0s8LxE2hVrYzCmpeTzbzP59GKl274DP87Vr2MCm9kTeWPzYWiuGzhheVlXGLoirVBtPy1kADFTA6jqwR8gzZ_Z-n6eenpV0FlbnlQU8w6k3-g9OY_FWbEHGNr7_4`,
+        },
+        params: {
+          limit: 8,
         },
       }
     );
 
-    // Extract the top recommedations from the API response
-    const topRecs = response.data.items;
+    // Extract the new releases from the API response
+    const newReleases = response.data.albums.items;
 
-    // Return the top recommedations as the API response
-    res.json({ topRecs });
+    // Return the new releases as the API response
+    res.json({ newReleases });
   } catch (error) {
-    console.error('Error retrieving top recommedations:', error);
-    res.status(500).json({ error: 'An error occurred while retrieving the top recommedations' });
+    console.error("Error retrieving new releases:", error);
+    res.status(500).json({
+      error: "An error occurred while retrieving new releases",
+    });
   }
 });
-
-
-
-
 
 module.exports = router;
