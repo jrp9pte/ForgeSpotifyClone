@@ -4,10 +4,11 @@ const axios = require("axios");
 
 router.get("/", async (req, res) => {
   try {
+    console.log("req", req)
     // Make a call to the Spotify API to retrieve new releases
     const response = await axios.get("https://api.spotify.com/v1/me", {
       headers: {
-        Authorization: `Bearer BQBA0087MKJb93Y98qBr3-i5ojxpsbJmr9teQ6ToF39R6Qr9rIWBw8F1qAfmOs2jWIYxdHfKCCcjVfsUBiPIWJVdY6L0NsQoJ4VWrMunb3e8dYmDgLyjMyUwNiJ2W34jvwhcWWT1lC0Gvl6DKkPDDAQKaUpTePpxHtn7Y_7AkptqLURRgYDtDHHCgYe1SfQap3y-_lZt16mHWcIv8BavGGqcEDxRqaWQ0Q4`,
+        Authorization: `Bearer BQAA5Y-M-1w1m0nC3VPWNERAQvU3ki_vu1T4_9c7l0jClFeQg3suN42r5eSSJOoqQUCxyicKl-iFcMr0DaJSD9V_SNwynxsbtAeRugcqYgfwVebUWQNG93tTk4uvXXQkBY9JZUusayBQullZ_9lPQgJBZter549Xtu2WRhAoCu5QX2SgDnPxW1FyZ4H_Y1mKiWemNDsQMtO3sA`,
       },
     });
     console.log(response);
