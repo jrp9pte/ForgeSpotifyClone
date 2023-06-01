@@ -4,22 +4,23 @@ const axios = require("axios");
 
 router.get("/", async (req, res) => {
   try {
-    // Make a call to the Spotify API to retrieve new releases
+    const { access_token } = req.headers.authorization;
+    // Make a call to the Spotify API to retrieve the user profile
     const response = await axios.get("https://api.spotify.com/v1/me", {
       headers: {
-        Authorization: `Bearer BQBA0087MKJb93Y98qBr3-i5ojxpsbJmr9teQ6ToF39R6Qr9rIWBw8F1qAfmOs2jWIYxdHfKCCcjVfsUBiPIWJVdY6L0NsQoJ4VWrMunb3e8dYmDgLyjMyUwNiJ2W34jvwhcWWT1lC0Gvl6DKkPDDAQKaUpTePpxHtn7Y_7AkptqLURRgYDtDHHCgYe1SfQap3y-_lZt16mHWcIv8BavGGqcEDxRqaWQ0Q4`,
+        Authorization: `Bearer BQDBGCV2QeEgJUlqflmDWPruREVmRnIoYLluRvLMC556ykEzMDsNrLXmLCqF1ijn6DDkjY2bYvhhkM_eRoMIFeBxbb3wrpRJZg57LqQ6jd0kP4BzFCcrqILU_qbaivlabvy-Vt2OhcmUfKrRntedFsT6Al721LIzeGX7i1r2vZIUA3WcNlPyDGispkIEzgMY_V_WLNt7FpOZQhF9WymhwS9NBu_jCBg3AQA`,
       },
     });
-    console.log(response);
-    // Extract the new releases from the API response
+
+    // Extract the user profile from the API response
     const profile = response.data;
 
-    // Return the new releases as the API response\
+    // Return the user profile as the API response
     res.json({ profile });
   } catch (error) {
-    console.error("Error retrieving new releases:", error);
+    console.error("Error retrieving user profile:", error);
     res.status(500).json({
-      error: "An error occurred while retrieving new releases",
+      error: "An error occurred while retrieving the user profile",
     });
   }
 });

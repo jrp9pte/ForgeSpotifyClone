@@ -1,116 +1,168 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
+import React, { useState, useEffect, useContext } from "react"
+import axios from "axios"
 import "./Login.css"
-
+import TextField from "@mui/material/TextField"
+import Box from "@mui/material/Box"
+import InputLabel from "@mui/material/InputLabel"
+import FormControl from "@mui/material/FormControl"
+import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton"
+import OutlinedInput from "@mui/material/OutlinedInput"
+import InputAdornment from "@mui/material/InputAdornment"
+import Visibility from "@mui/icons-material/Visibility"
+import VisibilityOff from "@mui/icons-material/VisibilityOff"
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { UserContext } from "./UserProvider"
 
 function Login() {
-    
-    const [username, setUserName] = useState('')
-    const [userPassword, setUserPassword] = useState('')
-    const [userEmail, setUserEmail] = useState('')
-    const [access_token, setAccessToken] = useState('')
-    
-    const getReturnedParamsFromSpotifyAuth = (hash) =>{
-        const stringAfterHashtag = hash.substring(1);
-        const paramsInUrl = stringAfterHashtag.split("&")
-        const paramsSplitUp = paramsInUrl.reduce((accumulater, currentValue)=>{
-            console.log(currentValue)
-            const[key, value] = currentValue.split("=")
-            accumulater[key] = value
-            return accumulater
-        }, {})
-        return paramsSplitUp
-    }
-    useEffect(()=>{
-        if (window.location.hash) {
-            const {
-                access_token,
-                expires_in,
-                token_type,
-            }= getReturnedParamsFromSpotifyAuth(window.location.hash)
-            window.localStorage.setItem("access_token", access_token);
-            setAccessToken(access_token)
-        }
-    },[])        
+	const { user, setUser } = useContext(UserContext)
 
-    const handleLogin = (e) =>{
-        e.preventDefault()
-        // Need to ensure email and password are all valid  
-        // Storing entered username and password to local storage to retrieve after url redirect
-        window.addEventListener('beforeunload', function(event) {
-            window.localStorage.setItem("userName", username);
-            window.localStorage.setItem("userPassword", userPassword);
-            window.localStorage.setItem("userEmail", userEmail)
-        })
-        window.location.href = "http://localhost:9000/spotifyAuthorize";    
-    }
+	const theme = createTheme({
+		status: {
+			danger: "#e53e3e",
+		},
+		palette: {
+			primary: {
+				main: "#d79f88",
+				darker: "#053e85",
+			},
+			neutral: {
+				main: "#64748B",
+				contrastText: "#fff",
+			},
+		},
+	})
 
-    const logout =()=>{
-        setAccessToken('')
-        // window.addEventListener('beforeunload')
-        window.localStorage.removeItem("access_token");
-        window.localStorage.removeItem("userName");
-        window.localStorage.removeItem("userPassword");
-        window.localStorage.removeItem("userEmail");
-        window.location.href = "http://localhost:3000/login"   
-        // console.log(window.localStorage.getItem("access_token"))
-        // console.log(window.localStorage.getItem("userName"))
-        // console.log(window.localStorage.getItem("userPassword"))
-        // console.log(window.localStorage.getItem("userEmail"))
+	const [username, setUserName] = useState("")
+	const [userPassword, setUserPassword] = useState("")
+	const [userEmail, setUserEmail] = useState("")
+	const [access_token, setAccessToken] = useState("")
 
+	const handleLogin = (e) => {
+		e.preventDefault()
+		axios
+			.post("http://localhost:9000/login", {
+				// username: username,
+				password: userPassword,
+				email: userEmail,
+			})
+			.then((res) => setUser(res.data))
+	}
 
+	const [showPassword, setShowPassword] = useState(false)
 
-    }
-    const submit = (e) =>{
-        e.preventDefault()
-        
-        axios.post("http://localhost:9000/savetodb", {
-            username: window.localStorage.getItem("userName"),
-            password: window.localStorage.getItem("userPassword"),
-            email: window.localStorage.getItem("userEmail"),
-            access_token: window.localStorage.getItem("access_token"),
-            
-        })
-    }
-    return (
-        <>
-            <h1>Log into Spotify</h1>
-            {!access_token ?
-            <form onSubmit = {handleLogin} className = "login-form">
-                <input
-                    type = "text"
-                    required
-                    placeholder='Enter a Email'
-                    
-                    value = {userEmail}
-                    onChange = {(e) => setUserEmail(e.target.value)}
-                />
-                <input
-                    type = "text"
-                    required
-                    placeholder='Enter a Username'
-                    value = {username}
-                    onChange = {(e) => setUserName(e.target.value)}
-                />
-                <input
-                    type = "text"
-                    required
-                    placeholder='Enter a Password'
-                    value = {userPassword}
-                    onChange = {(e) => setUserPassword(e.target.value)}
-                />
-                
+	const handleClickShowPassword = () => setShowPassword((show) => !show)
 
-                <button> Log in </button>
-            </form>
-            :
-            <> 
-            <button onClick={logout}>logout</button>
-            <button onClick={submit}>Submit</button>
-            </>
-            }
-        </>
-    )
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault()
+	}
+
+	return (
+		<>
+			<h1>Log into Spotify</h1>
+
+			{/* _______ */}
+			<form onSubmit={handleLogin}>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						// marginBottom: "10px",
+						marginTop: "40px",
+					}}
+				>
+					<Box style={{ width: "250px" }}>
+						<TextField
+							variant="outlined"
+							id="Spotify-email-address"
+							name="email"
+							type="email"
+							required
+							label="Email Address"
+							fullWidth
+							// value={userEmail}
+							onChange={(e) => setUserEmail(e.target.value)}
+						/>
+					</Box>
+				</div>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						marginBottom: "10px",
+						marginTop: "10px",
+					}}
+				>
+					<Box style={{ width: "250px" }}>
+						<TextField
+							variant="outlined"
+							id="Username for Social"
+							name="email"
+							type="text"
+							required
+							label="UserName"
+							fullWidth
+							// value={userEmail}
+							onChange={(e) => setUserName(e.target.value)}
+						/>
+					</Box>
+				</div>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						marginBottom: "10px",
+					}}
+				>
+					<Box style={{ width: "250px" }}>
+						<FormControl sx={{ width: "100%" }} variant="outlined">
+							<InputLabel htmlFor="outlined-adornment-password">
+								Password
+							</InputLabel>
+							<OutlinedInput
+								id="outlined-adornment-password"
+								required
+								fullWidth
+								// value={userPassword}
+								onChange={(e) =>
+									setUserPassword(e.target.value)
+								}
+								type={showPassword ? "text" : "password"}
+								endAdornment={
+									<InputAdornment position="end">
+										<IconButton
+											aria-label="toggle password visibility"
+											onClick={handleClickShowPassword}
+											onMouseDown={
+												handleMouseDownPassword
+											}
+											edge="end"
+										>
+											{showPassword ? (
+												<VisibilityOff />
+											) : (
+												<Visibility />
+											)}
+										</IconButton>
+									</InputAdornment>
+								}
+								label="Password"
+							/>
+						</FormControl>
+					</Box>
+				</div>
+				<div style={{ display: "flex", justifyContent: "center" }}>
+					<ThemeProvider theme={theme}>
+						<Button variant="contained" onClick={handleLogin}>
+							Login
+						</Button>
+					</ThemeProvider>
+				</div>
+			</form>
+		</>
+	)
 }
 
 export default Login

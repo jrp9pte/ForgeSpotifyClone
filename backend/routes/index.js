@@ -2,26 +2,50 @@ var express = require("express");
 const querystring = require("querystring");
 var router = express.Router();
 // const db = require("./firebase")
-const { admin, db } = require("./firebase");
-// const admin = require("./firebase")
+// const {admin,db} = require("./firebase")
+const db = require("./firebase")
+require('firebase/auth')
 
-const {
-  deleteDoc,
-  updateDoc,
-  setDoc,
-  getDocs,
-  collection,
-  where,
-  query,
-  doc,
-} = require("firebase/firestore");
-const { createUserWithEmailAndPassword } = require("firebase/auth");
+const  {deleteDoc, updateDoc, setDoc, getDocs, collection,where, query, doc} = require("firebase/firestore")
+const { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} = require("firebase/auth");
+// const { useRadioGroup } = require('@material-ui/core');
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.post("/savetodb", async (req, res) => {
+
+router.post('/login', async(req,res)=>{
+  const {password, email} = req.body
+  // Need to make sure email and password exists within db
+
+  // Search through db, fetch the user with matching uid, res.send(uid, spotify access_token)
+
+  // login page, authorize with spotify 
+  // get rid of username fields for login and signup, delete username field dont store it
+  // everytime we need a username 
+  try{
+    const auth = getAuth()
+    const userCredential = await signInWithEmailAndPassword(auth,email,password)
+    const q = query(collection(db,'User'), where('uid', "==", userCredential.user.uid))
+    const querySnapshot = await getDocs(q)
+    let data = []
+    querySnapshot.forEach((doc) => {
+      data.push(doc.data().access_token)
+      console.log(data[0])
+    });
+    const result = {uid: userCredential.user.uid, access_token: data[0]}
+    res.send(result)
+
+  }
+  catch(error){
+    console.log(error)
+  }
+  console.log("router works", password, email)
+  
+})
+
+router.post('/savetodb',async(req,res) =>{
   // const auth = getAuth();
   const { username, password, email, access_token } = req.body;
   // if the email already exists with a user account, need to send an alert
@@ -32,36 +56,28 @@ router.post("/savetodb", async (req, res) => {
   querySnapshot.forEach((doc) => {
     data.push(doc.data());
   });
-  if (data.length === 0) {
-    res.send("created!");
-    console.log("hotdog");
-    try {
-      admin
-        .auth()
-        .createUser({
-          email: email,
-          password: password,
-          username: username,
-          access_token: access_token,
-        })
-        .then((userRecord) => {
-          setDoc(doc(db, "User", Math.random().toString()), {
-            username: username,
-            // password: password,
-            email: email,
-            access_token: access_token,
-            uid: userRecord.uid,
-          });
-        });
-    } catch (error) {
-      console.log(error);
+  if (data.length === 0 ){
+    res.send("created!")
+    try{
+      const auth = getAuth()
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      await setDoc(doc(db, 'User', Math.random().toString()), {
+                                      // username: username,
+                                      // password: password,
+                                      email: email,
+                                      access_token: access_token,
+                                      uid: userCredential.user.uid
+                    });
+    }
+    catch(error){
+      console.log(error)
     }
   } else {
     res.send("cant-create!");
   }
 
-  // res.send("created!")
-});
+  
+})
 
 router.get("/spotifyAuthorize", (req, res) => {
   const client_id = process.env.REACT_APP_Client_id;
