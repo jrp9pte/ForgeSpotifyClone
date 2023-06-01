@@ -25,28 +25,54 @@ router.post('/login', async(req,res)=>{
   try{
     const auth = getAuth()
     const userCredential = await signInWithEmailAndPassword(auth,email,password)
+    console.log(userCredential)
     const q = query(collection(db,'User'), where('uid', "==", userCredential.user.uid))
     const querySnapshot = await getDocs(q)
-
     const client_id = process.env.REACT_APP_Client_id
-    const scope = "user-top-read"
+    const client_secret = process.env.REACT_APP_Client_secret
     const redirect_uri= "http://localhost:3000/accountcreation"
-    const url = "https://accounts.spotify.com/en/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&response_type=token&show_dialog=true"
-    res.redirect(url)
-
     let data = []
+    let docid = []
     querySnapshot.forEach((doc) => {
-      data.push(doc.data().access_token)
-      console.log(data[0])
+      data.push(doc.data().refresh_token)
+      docid.push(doc.id)
     });
-    const result = {uid: userCredential.user.uid, access_token: data[0]}
-    // res.send(result)
-
+    
+    // After every login, refresh token should be used to make new access tokens
+    try {
+      const refresh_token = data[0]
+      const url =
+        "https://accounts.spotify.com/api/token?grant_type=refresh_token&refresh_token=" +
+        refresh_token +
+        "&redirect_uri=" +
+        redirect_uri;
+      const headers = {
+        Authorization:
+          "Basic " +
+          Buffer.from(client_id + ":" + client_secret, "utf8").toString("base64"),
+        "Content-Type": "application/x-www-form-urlencoded",
+      };
+      console.log(url);
+      fetch(url, { method: "post", headers: headers })
+        .catch((err) => console.log(err))
+        .then((res) => res.json())
+        .then((data) => { 
+          const result = {uid: userCredential.user.uid, access_token: data.access_token}
+          const docref = doc(db,"User", docid[0])
+          const update = {
+            access_token: data.access_token
+          }
+          updateDoc(docref,update)
+          res.send(result)
+        })
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
   }
   catch(error){
     console.log(error)
   }
-  console.log("router works", password, email)
 
 })
 
@@ -74,6 +100,9 @@ router.post('/savetodb',async(req,res) =>{
                                       uid: userCredential.user.uid});
 
       res.send("created!")
+    }
+    catch(error){
+      console.log("error")
     }
   } else {
     res.send("cant-create!");
