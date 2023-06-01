@@ -1,0 +1,69 @@
+.input-field{
+    margin-top: 10px;
+    /* position:relative; */
+    width:200px;
+    /* text-align: center; */
+
+}
+
+.create {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .create label {
+    text-align: left;
+    display: block;
+  }
+  .create h2 {
+    font-size: 20px;
+    color: #D79F88;
+    margin-bottom: 30px;
+  }
+  .create input, .create textarea, .create select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    display: block;
+  }
+  .button {
+    background: #D79F88;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+.create .fill-color{
+    color: #b5b5bb
+}
+
+.check-color{
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #1882f8;
+    box-sizing: border-box;
+    display: block;
+}
+
+.success-color{
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #00da1d;
+    box-sizing: border-box;
+    display: block;
+}
+
+.error-color{
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #f81818;
+    box-sizing: border-box;
+    display: block;
+}
