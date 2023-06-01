@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/login', async(req,res)=>{
-  const {username, password, email} = req.body
+  const {password, email} = req.body
   // Need to make sure email and password exists within db
 
   // Search through db, fetch the user with matching uid, res.send(uid, spotify access_token)
@@ -27,7 +27,16 @@ router.post('/login', async(req,res)=>{
   try{
     const auth = getAuth()
     const userCredential = await signInWithEmailAndPassword(auth,email,password)
-    res.send(userCredential)
+    const q = query(collection(db,'User'), where('uid', "==", userCredential.user.uid))
+    const querySnapshot = await getDocs(q)
+    let data = []
+    querySnapshot.forEach((doc) => {
+      data.push(doc.data().access_token)
+      console.log(data[0])
+    });
+    const result = {uid: userCredential.user.uid, access_token: data[0]}
+    res.send(result)
+
   }
   catch(error){
     console.log(error)
@@ -53,25 +62,12 @@ router.post('/savetodb',async(req,res) =>{
       const auth = getAuth()
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
       await setDoc(doc(db, 'User', Math.random().toString()), {
-                                      username: username,
+                                      // username: username,
                                       // password: password,
                                       email: email,
                                       access_token: access_token,
                                       uid: userCredential.user.uid
-                                    });
-      // admin.auth().createUser({email:email, 
-      //                           password: password,
-      //                           username: username,
-      //                           access_token: access_token})
-      //                           .then((userRecord)=>{
-      //                             setDoc(doc(db, 'User', Math.random().toString()), {
-      //                               username: username,
-      //                               // password: password,
-      //                               email: email,
-      //                               access_token: access_token,
-      //                               uid: userRecord.uid 
-      //                             });
-      //                           });
+                    });
     }
     catch(error){
       console.log(error)

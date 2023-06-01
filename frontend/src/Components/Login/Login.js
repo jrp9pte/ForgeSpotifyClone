@@ -44,7 +44,7 @@ function Login() {
 		e.preventDefault()
 		axios
 			.post("http://localhost:9000/login", {
-				username: username,
+				// username: username,
 				password: userPassword,
 				email: userEmail,
 			})
