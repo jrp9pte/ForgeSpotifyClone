@@ -8,7 +8,7 @@ const { deleteDoc, updateDoc, setDoc, getDocs, collection, doc } = require("fire
 
 
 
-router.get('/topRecs', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     // Make a call to the Spotify API to retrieve the user's top recommedations
     const response = await axios.get(
