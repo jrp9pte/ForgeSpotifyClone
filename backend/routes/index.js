@@ -1,56 +1,34 @@
 var express = require("express");
 const querystring = require("querystring");
 var router = express.Router();
-const db = require("./firebase");
-require("firebase/auth");
+const axios = require('axios')
+const db = require("./firebase")
+require('firebase/auth')
 
-const {
-  deleteDoc,
-  updateDoc,
-  setDoc,
-  getDocs,
-  collection,
-  where,
-  query,
-  doc,
-} = require("firebase/firestore");
-const {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} = require("firebase/auth");
+const  {deleteDoc, updateDoc, setDoc, getDocs, collection,where, query, doc} = require("firebase/firestore")
+const { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} = require("firebase/auth");
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.post("/login", async (req, res) => {
-  const { password, email } = req.body;
-  // Need to make sure email and password exists within db
 
-  // Search through db, fetch the user with matching uid, res.send(uid, spotify access_token)
+router.post('/login', async(req,res)=>{
+  const {password, email} = req.body
 
-  // login page, authorize with spotify
-
-  // For username, make a call to spotify API and store that username later
-  try {
-    const auth = getAuth();
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    console.log(userCredential);
-    const q = query(
-      collection(db, "User"),
-      where("uid", "==", userCredential.user.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    const client_id = process.env.REACT_APP_Client_id;
-    const client_secret = process.env.REACT_APP_Client_secret;
-    const redirect_uri = "http://localhost:3000/accountcreation";
-    let data = [];
-    let docid = [];
+  try{
+    const auth = getAuth()
+    const userCredential = await signInWithEmailAndPassword(auth,email,password)
+    // Need to send error messages back stating invalid email, account already exists,
+    // invalid credentials
+    console.log(userCredential)
+    const q = query(collection(db,'User'), where('uid', "==", userCredential.user.uid))
+    const querySnapshot = await getDocs(q)
+    const client_id = process.env.REACT_APP_Client_id
+    const client_secret = process.env.REACT_APP_Client_secret
+    const redirect_uri= "http://localhost:3000/accountcreation"
+    let data = []
+    let docid = []
     querySnapshot.forEach((doc) => {
       data.push(doc.data().refresh_token);
       docid.push(doc.id);
@@ -83,11 +61,20 @@ router.post("/login", async (req, res) => {
           };
           const docref = doc(db, "User", docid[0]);
           const update = {
-            access_token: data.access_token,
-          };
-          updateDoc(docref, update);
-          res.send(result);
-        });
+            access_token: data.access_token
+          }
+          updateDoc(docref,update)
+          res.send(result)
+          // const response =  axios.get("https://api.spotify.com/v1/me", {
+          //   headers: {
+          //     Authorization: `Bearer ${data.access_token}`,
+          //   },
+          // });
+          // const profile = response.data;
+          // console.log(profile)
+          // Using new access token, call to spotify and grab username to save to doc
+
+        })
     } catch (err) {
       console.log(err);
       res.status(500).send(err);
@@ -166,20 +153,13 @@ router.post("/spotifycodes", async (req, res) => {
   }
 });
 
-router.get("/spotifyAuthorize", (req, res) => {
-  const client_id = process.env.REACT_APP_Client_id;
-  const scope = "user-top-read";
-  const redirect_uri = "http://localhost:3000/accountcreation";
-  const url =
-    "https://accounts.spotify.com/en/authorize?client_id=" +
-    client_id +
-    "&redirect_uri=" +
-    redirect_uri +
-    "&scope=" +
-    scope +
-    "&response_type=code&show_dialog=true";
-  res.redirect(url);
-});
+router.get('/spotifyAuthorize', (req,res) =>{
+    const client_id = process.env.REACT_APP_Client_id
+    const scope = "user-top-read user-read-private user-read-email user-library-read";
+    const redirect_uri= "http://localhost:3000/accountcreation"
+    const url = "https://accounts.spotify.com/en/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&response_type=code&show_dialog=true"
+    res.redirect(url)
+  })
 
 router.get("/info", async (req, res, next) => {
   const allDocData = [];
