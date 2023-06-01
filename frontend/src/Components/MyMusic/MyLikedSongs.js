@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/Drawer";
+import axios from "axios";
+
 import {
   CssBaseline,
   Card,
@@ -3691,10 +3693,24 @@ const likedSongs = {
   total: 336,
 };
 function MyLikedSongs() {
+  const API_URL = "http://localhost:9000";
+  const [selectedData, setSelectedData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/likedSongs`);
+      setSelectedData(response.data.likedSongs);
+    } catch (error) {
+      console.error("Error retrieving top artists:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <Container maxWidth="lg">
       <Grid container spacing={4} justify="left">
-        {likedSongs.items.map((song) => (
+        {selectedData.map((song) => (
           <Grid item xs={12} sm={6} md={3} lg={3} key={song.track.id}>
             <Card style={{ height: "100%" }}>
               <CardMedia
