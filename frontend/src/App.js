@@ -6,7 +6,6 @@ import NavigationBar from "./Components/Navigation/NavigationBar";
 import SignUp from "./Components/SignUp/Signup";
 import UserAccountCreation from "./Components/SignUp/UserAccountCreation"
 import TopArtists from "./Components/Discover/topArtists";
-
 import Discover from "./Components/Discover/Discover";
 import MyMusic from "./Components/MyMusic/MyMusic";
 function App() {
@@ -20,7 +19,7 @@ function App() {
           <Route path="/" element={<Discover />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/accountcreation" element={<UserAccountCreation />} />
-        </Routes>
+          </Routes>
         {/* <TopArtists></TopArtists> */}
     </div>
   );
