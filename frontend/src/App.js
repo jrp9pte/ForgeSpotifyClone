@@ -1,9 +1,13 @@
-import "./App.css"
-import { Routes, Route } from "react-router-dom"
-import Profile from "./Components/Profile/Profile"
-import Login from "./Components/Login/Login.js"
-import NavigationBar from "./Components/Navigation/NavigationBar"
-import SignUp from "./Components/SignUp/Signup"
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Profile from "./Components/Profile/Profile";
+<<<<<<< HEAD
+import Discussion from "./Components/Discussion/Discussion";
+=======
+import Login from "./Components/Login/Login.js";
+>>>>>>> 9132b623b3017adcfc6007725007febfe5d20dca
+import NavigationBar from "./Components/Navigation/NavigationBar";
+import SignUp from "./Components/SignUp/Signup";
 import UserAccountCreation from "./Components/SignUp/UserAccountCreation"
 import TopArtists from "./Components/Discover/topArtists"
 import Discover from "./Components/Discover/Discover"
