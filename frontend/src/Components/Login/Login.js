@@ -60,70 +60,12 @@ function Login() {
 
     return (
         <>
-            <div className = "create">
-                
-                {/* TODO: Fix header to make it ADA friendly later */}
-                <h2> Log In </h2>
-                <form onSubmit = {handleLogin} >
-                    <label>Email:</label>
-                    <input
-                        type = "email"
-                        pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
-                        required
-                        placeholder='Enter a Email'
-                        value = {userEmail}
-                        onChange = {(e) => setUserEmail(e.target.value)}
-                    />
-                    <label>Username: </label>
-                    <input
-                        type = "text"
-                        required
-                        placeholder='Enter a Username'
-                        value = {username}
-                        onChange = {(e) => setUserName(e.target.value)}
-                    />
-                    <label>Password: </label>
-                    <input
-                        type = "password"
-                        minLength= "6"
-                        required
-                        placeholder='Enter a Password'
-                        value = {userPassword}
-                        onChange = {(e) => setUserPassword(e.target.value)}
-                    />
-                    <button className="button"> Log In </button>
-                </form>
-            </div>
+            
 
 
             <h1>Log into Spotify</h1>
             
-                <form onSubmit={handleLogin} className="login-form">
-                    <input
-                        type="text"
-                        required
-                        placeholder='Enter a Email'
-
-                        value={userEmail}
-                        onChange={(e) => setUserEmail(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        required
-                        placeholder='Enter a Username'
-                        value={username}
-                        onChange={(e) => setUserName(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        required
-                        placeholder='Enter a Password'
-                        value={userPassword}
-                        onChange={(e) => setUserPassword(e.target.value)}
-                    />
-
-
-                    <button> Log in </button>
+                
                     {/* _______ */}
                     <form onSubmit={handleLogin}>
                         <div
@@ -215,8 +157,7 @@ function Login() {
 
                         </div>
                     </form>
-                    {/* _____________ */}
-                </form>
+                    
 
                
             
