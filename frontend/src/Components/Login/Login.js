@@ -43,7 +43,7 @@ function Login() {
     const handleLogin = (e) =>{
         e.preventDefault()
         axios.post("http://localhost:9000/login", {
-            username:username,
+            // username:username,
             password: userPassword,
             email: userEmail
         }).then((res) => console.log(res.data))
@@ -60,12 +60,7 @@ function Login() {
 
     return (
         <>
-            
-
-
             <h1>Log into Spotify</h1>
-            
-                
                     {/* _______ */}
                     <form onSubmit={handleLogin}>
                         <div
@@ -87,28 +82,6 @@ function Login() {
                                     fullWidth
                                     // value={userEmail}
                                     onChange={(e) => setUserEmail(e.target.value)}
-                                />
-                            </Box>
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                marginBottom: "10px",
-                                marginTop: "10px",
-                            }}
-                        >
-                            <Box style={{ width: "250px" }}>
-                                <TextField
-                                    variant="outlined"
-                                    id="Username for Social"
-                                    name="email"
-                                    type="text"
-                                    required
-                                    label="UserName"
-                                    fullWidth
-                                    // value={userEmail}
-                                    onChange={(e) => setUserName(e.target.value)}
                                 />
                             </Box>
                         </div>

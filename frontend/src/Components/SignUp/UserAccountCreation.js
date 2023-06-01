@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import "./SignUp.css"
 function UserAccountCreation() {
-    const [username, setUserName] = useState('')
+    // const [username, setUserName] = useState('')
     const [userPassword, setUserPassword] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [access_token, setAccessToken] = useState('')
@@ -38,7 +38,6 @@ function UserAccountCreation() {
     const createAccount = (e) =>{
         e.preventDefault()
         axios.post("http://localhost:9000/savetodb", {
-                        username:username,
                         password:userPassword,
                         email:userEmail,
                         access_token:access_token,
@@ -52,26 +51,6 @@ function UserAccountCreation() {
             }
         })
     }
-
-    // const logout =()=>{
-    //     setAccessToken('')
-    //     // window.addEventListener('beforeunload')
-    //     // window.localStorage.removeItem("access_token");
-    //     // window.localStorage.removeItem("userName");
-    //     // window.localStorage.removeItem("userPassword");
-    //     // window.localStorage.removeItem("userEmail");
-    //     window.location.href = "http://localhost:3000/login"   
-    // }
-    
-    // const submit = (e) =>{
-    //     e.preventDefault()
-    //     axios.post("http://localhost:9000/savetodb", {
-    //         // username: window.localStorage.getItem("userName"),
-    //         // password: window.localStorage.getItem("userPassword"),
-    //         // email: window.localStorage.getItem("userEmail"),
-    //         // access_token: window.localStorage.getItem("access_token"),    
-    //     })
-    // }
     return (
         <>
             
@@ -94,15 +73,7 @@ function UserAccountCreation() {
                         placeholder='Enter a Email'
                         value = {userEmail}
                         onChange = {(e) => setUserEmail(e.target.value)}
-                    />
-                    <label>Username: </label>
-                    <input
-                        type = "text"
-                        required
-                        placeholder='Enter a Username'
-                        value = {username}
-                        onChange = {(e) => setUserName(e.target.value)}
-                    />
+                    />                  
                     <label>Password: </label>
                     <input
                         type = "password"
