@@ -1,0 +1,54 @@
+#banner {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.15), #E8F3F7);
+    padding-bottom: 20px;
+}
+
+#settingsButton {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#userAvatar {
+    width: calc(70px + 8vw);
+    height: calc(70px + 8vw);
+    margin-left: calc(50px + 1vw);
+    margin-right: 2vw;
+}
+
+#profileLabel {
+    font-size: calc(14px + 1.5vw);
+
+}
+
+#usernameLabel {
+    font-size: calc(16px + 6vw);
+}
+
+#settingsButton {
+    transition: 0.4s;
+}
+
+#settingsButton:hover {
+    transform: rotate(-360deg);
+}
+
+#settingsLabel {
+    margin: calc(20px + 1vw);
+    font-size: calc(32px + 2vw);
+}
+
+#setting {
+    padding-left: calc(16px + 1vw);
+    padding-right: calc(16px + 1vw);
+}
+
+#settingsDivider {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#sectionHeader {
+    font-size: calc(28px + 0.75vw);
+    margin-top: 75px;
+    margin-bottom: 25px;
+}
