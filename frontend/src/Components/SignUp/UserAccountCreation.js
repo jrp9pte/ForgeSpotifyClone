@@ -7,54 +7,53 @@ function UserAccountCreation() {
     const [userPassword, setUserPassword] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [access_token, setAccessToken] = useState('')
+    const [refresh_token, setRefreshToken] = useState('')
 
 
   
-    useEffect(()=>{
+       
+
+
+    const createAccount = async(e) =>{
+        e.preventDefault()
         if (window.location.search) {
             // retrieves authorization code from url after redirect from spotifyAuth
             const params = new URLSearchParams(window.location.search);
             const authorizationCode  = (params.get("code"));
-            axios.post("http://localhost:9000/spotifycodes", {
+            await axios.post("http://localhost:9000/spotifycodes", {
                 authorizationcode: authorizationCode,
-            }).then((res) => console.log(res.data))
-            // const {
-            //     access_token,
-            //     expires_in,
-            //     token_type,
-            // }= getReturnedParamsFromSpotifyAuth(window.location.hash)
-            // setAccessToken(access_token)
-            // call api on authorization token
-
+            }).then((res) => {
+                // setRefreshToken()
+                // setAccessToken()
+                // console.log(res.data.refresh_token)
+                // console.log(res.data.access_token)
+                axios.post("http://localhost:9000/savetodb", {
+                        password:userPassword,
+                        email:userEmail,
+                        access_token:res.data.access_token,
+                        refresh_token:res.data.refresh_token,
+                    }
+                ).then((res)=>{
+                    if (res.data === "created!"){
+                        window.location.href = "http://localhost:3000/login"
+                    }
+                    else { // Need to display to UI that email already exists
+                        alert("EMAIL EXISTS ALREADY")
+                    }
+                })
+                // qwerty@gmail.com
+            })
+            
+            
+            
         }
 
-        //AQBD2L8MhfoAGvVCkdCniBgOVYA0tfpJsIHdUeOzqRXWvFKEHJBe35rqKn8-L4WYhyTrcpqphvb4oCDCrJdS2FrOEzKGn_-TqeFFjOnKq3I3nyggQXGT7uPlpnwFkP5v4L-60fmwHFOzU3jpvnlsVNgtlgas6kXGooeDfglYrHmjl5_ZhFk5V2sBbvGQQo-gMpl_F6oA9TM
         // This code prevents users from accessing account creation page
         // without first authorizing spotify account
         else{
-            // window.location.href = "http://localhost:3000/signup"
+            window.location.href = "http://localhost:3000/signup"
         }
-    },[])        
-
-    const getAuthCode = () =>{
-
-    }
-
-    const createAccount = (e) =>{
-        e.preventDefault()
-        axios.post("http://localhost:9000/savetodb", {
-                        password:userPassword,
-                        email:userEmail,
-                        access_token:access_token,
-                    }
-        ).then((res)=>{
-            if (res.data === "created!"){
-                window.location.href = "http://localhost:3000/login"
-            }
-            else { // Need to display to UI that email already exists
-                alert("EMAIL EXISTS ALREADY")
-            }
-        })
+        
     }
     return (
         <>

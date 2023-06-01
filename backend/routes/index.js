@@ -6,7 +6,7 @@ require('firebase/auth')
 
 const  {deleteDoc, updateDoc, setDoc, getDocs, collection,where, query, doc} = require("firebase/firestore")
 const { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} = require("firebase/auth");
-// const { useRadioGroup } = require('@material-ui/core');
+const { useRadioGroup } = require('@material-ui/core');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -52,7 +52,8 @@ router.post('/login', async(req,res)=>{
 
 router.post('/savetodb',async(req,res) =>{
   // const auth = getAuth();
-  const {username, password, email,  access_token} = req.body
+  const {password, email,  access_token, refresh_token} = req.body
+  console.log(access_token,refresh_token)
   // if the email already exists with a user account, need to send an alert
   const userCollection = collection(db, "User")
   const q = query(userCollection,where('email', '==', email))
@@ -62,17 +63,17 @@ router.post('/savetodb',async(req,res) =>{
     data.push(doc.data())
   });
   if (data.length === 0 ){
-    res.send("created!")
+    
     try{
       const auth = getAuth()
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
       await setDoc(doc(db, 'User', Math.random().toString()), {
-                                      // username: username,
-                                      // password: password,
                                       email: email,
                                       access_token: access_token,
-                                      uid: userCredential.user.uid
-                    });
+                                      refresh_token: refresh_token,
+                                      uid: userCredential.user.uid});
+                    
+      res.send("created!")
     }
     catch(error){
       console.log(error)
@@ -118,16 +119,13 @@ router.post('/spotifycodes', async(req,res)=>{
     console.log(err);
     res.status(500).send(err);
   }
-
- 
 })
 
 router.get('/spotifyAuthorize', (req,res) =>{
     const client_id = process.env.REACT_APP_Client_id
     const scope = "user-top-read"
     const redirect_uri= "http://localhost:3000/accountcreation"
-    const url = "https://accounts.spotify.com/en/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&response_type=code&show_dialog=true"
-    
+    const url = "https://accounts.spotify.com/en/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&response_type=code&show_dialog=true" 
     res.redirect(url)
   })
 
@@ -137,6 +135,7 @@ router.get("/info", async (req, res, next) => {
   const docs = await getDocs(collection(db, "User"))
   docs.forEach((doc) => allDocData.push([doc.data(),doc.id]))
   docs.forEach((doc) => console.log(doc.data()))
+  res.send(collection(db,"User"))
   res.json({result: allDocData})
 })
 module.exports = router;
