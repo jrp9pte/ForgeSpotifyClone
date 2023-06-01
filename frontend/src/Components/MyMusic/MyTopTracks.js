@@ -51,9 +51,9 @@ function MyTopTracks() {
                   value={selectedTerm}
                   onChange={handleChange}
                 >
-                  <MenuItem value="long_term">Long Term</MenuItem>
-                  <MenuItem value="medium_term">Medium Term</MenuItem>
-                  <MenuItem value="short_term">Short Term</MenuItem>
+                  <MenuItem value="long_term">Last Year</MenuItem>
+                  <MenuItem value="medium_term">Last 6 Months</MenuItem>
+                  <MenuItem value="short_term">Last 4 Weeks</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

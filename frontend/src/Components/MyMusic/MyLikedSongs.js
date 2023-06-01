@@ -3704,7 +3704,9 @@ function MyLikedSongs() {
       console.error("Error retrieving top artists:", error);
     }
   };
-
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <Container maxWidth="lg">
       <Grid container spacing={4} justify="left">
