@@ -54,7 +54,7 @@ function Profile() {
 				<UserNameAndAvatar />
 			</Box>
 			<Settings state={state} dispatch={(obj) => dispatch(obj)} />
-			{state.showTopArtists && (
+			{/* {state.showTopArtists && (
 				<>
 					<Typography id="sectionHeader" variant="h4">
 						My Top Artists
@@ -77,7 +77,7 @@ function Profile() {
 					</Typography>
 					<MyLikedSongs />
 				</>
-			)}
+			)} */}
 		</>
 	)
 }
