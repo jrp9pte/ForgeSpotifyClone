@@ -55,18 +55,6 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-// app.get('/spotifyAuthorize', (req,res) =>{
-//   const client_id = process.env.REACT_APP_Client_id
-//   const scope = "user-top-read"
-//   const redirect_uri= "http://localhost:3000/login"
-//   res.redirect('https://accounts.spotify.com/authorize?' +
-//     querystring.stringify({
-//       response_type: 'code',
-//       client_id: client_id,
-//       scope: scope,
-//       redirect_uri: redirect_uri,
-//     }));
-// })
 
 
 module.exports = app;
