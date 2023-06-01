@@ -1,20 +1,31 @@
 var express = require("express");
 const querystring = require("querystring");
 var router = express.Router();
-const db = require("./firebase")
-require('firebase/auth')
+const db = require("./firebase");
+require("firebase/auth");
 
-const  {deleteDoc, updateDoc, setDoc, getDocs, collection,where, query, doc} = require("firebase/firestore")
-const { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} = require("firebase/auth");
-const { useRadioGroup } = require('@material-ui/core');
+const {
+  deleteDoc,
+  updateDoc,
+  setDoc,
+  getDocs,
+  collection,
+  where,
+  query,
+  doc,
+} = require("firebase/firestore");
+const {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} = require("firebase/auth");
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-
-router.post('/login', async(req,res)=>{
-  const {password, email} = req.body
+router.post("/login", async (req, res) => {
+  const { password, email } = req.body;
   // Need to make sure email and password exists within db
 
   // Search through db, fetch the user with matching uid, res.send(uid, spotify access_token)
@@ -22,25 +33,32 @@ router.post('/login', async(req,res)=>{
   // login page, authorize with spotify
 
   // For username, make a call to spotify API and store that username later
-  try{
-    const auth = getAuth()
-    const userCredential = await signInWithEmailAndPassword(auth,email,password)
-    console.log(userCredential)
-    const q = query(collection(db,'User'), where('uid', "==", userCredential.user.uid))
-    const querySnapshot = await getDocs(q)
-    const client_id = process.env.REACT_APP_Client_id
-    const client_secret = process.env.REACT_APP_Client_secret
-    const redirect_uri= "http://localhost:3000/accountcreation"
-    let data = []
-    let docid = []
+  try {
+    const auth = getAuth();
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    console.log(userCredential);
+    const q = query(
+      collection(db, "User"),
+      where("uid", "==", userCredential.user.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    const client_id = process.env.REACT_APP_Client_id;
+    const client_secret = process.env.REACT_APP_Client_secret;
+    const redirect_uri = "http://localhost:3000/accountcreation";
+    let data = [];
+    let docid = [];
     querySnapshot.forEach((doc) => {
-      data.push(doc.data().refresh_token)
-      docid.push(doc.id)
+      data.push(doc.data().refresh_token);
+      docid.push(doc.id);
     });
 
     // After every login, refresh token should be used to make new access tokens
     try {
-      const refresh_token = data[0]
+      const refresh_token = data[0];
       const url =
         "https://accounts.spotify.com/api/token?grant_type=refresh_token&refresh_token=" +
         refresh_token +
@@ -49,7 +67,9 @@ router.post('/login', async(req,res)=>{
       const headers = {
         Authorization:
           "Basic " +
-          Buffer.from(client_id + ":" + client_secret, "utf8").toString("base64"),
+          Buffer.from(client_id + ":" + client_secret, "utf8").toString(
+            "base64"
+          ),
         "Content-Type": "application/x-www-form-urlencoded",
       };
       console.log(url);
@@ -57,29 +77,30 @@ router.post('/login', async(req,res)=>{
         .catch((err) => console.log(err))
         .then((res) => res.json())
         .then((data) => {
-          const result = {uid: userCredential.user.uid, access_token: data.access_token}
-          const docref = doc(db,"User", docid[0])
+          const result = {
+            uid: userCredential.user.uid,
+            access_token: data.access_token,
+          };
+          const docref = doc(db, "User", docid[0]);
           const update = {
-            access_token: data.access_token
-          }
-          updateDoc(docref,update)
-          res.send(result)
-        })
+            access_token: data.access_token,
+          };
+          updateDoc(docref, update);
+          res.send(result);
+        });
     } catch (err) {
       console.log(err);
       res.status(500).send(err);
     }
+  } catch (error) {
+    console.log(error);
   }
-  catch(error){
-    console.log(error)
-  }
+});
 
-})
-
-router.post('/savetodb',async(req,res) =>{
+router.post("/savetodb", async (req, res) => {
   // const auth = getAuth();
-  const {password, email,  access_token, refresh_token} = req.body
-  console.log(access_token,refresh_token)
+  const { password, email, access_token, refresh_token } = req.body;
+  console.log(access_token, refresh_token);
   // if the email already exists with a user account, need to send an alert
   const userCollection = collection(db, "User");
   const q = query(userCollection, where("email", "==", email));
@@ -88,35 +109,35 @@ router.post('/savetodb',async(req,res) =>{
   querySnapshot.forEach((doc) => {
     data.push(doc.data());
   });
-  if (data.length === 0 ){
+  if (data.length === 0) {
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await setDoc(doc(db, "User", Math.random().toString()), {
+        email: email,
+        access_token: access_token,
+        refresh_token: refresh_token,
+        uid: userCredential.user.uid,
+      });
 
-    try{
-      const auth = getAuth()
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      await setDoc(doc(db, 'User', Math.random().toString()), {
-                                      email: email,
-                                      access_token: access_token,
-                                      refresh_token: refresh_token,
-                                      uid: userCredential.user.uid});
-
-      res.send("created!")
-    }
-    catch(error){
-      console.log("error")
+      res.send("created!");
+    } catch (error) {
+      console.log("error");
     }
   } else {
     res.send("cant-create!");
   }
-
-
-})
-router.post('/spotifycodes', async(req,res)=>{
-  const {authorizationcode} = req.body
-  const client_id = process.env.REACT_APP_Client_id
-  const client_secret = process.env.REACT_APP_Client_secret
-  const redirect_uri= "http://localhost:3000/accountcreation"
+});
+router.post("/spotifycodes", async (req, res) => {
+  const { authorizationcode } = req.body;
+  const client_id = process.env.REACT_APP_Client_id;
+  const client_secret = process.env.REACT_APP_Client_secret;
+  const redirect_uri = "http://localhost:3000/accountcreation";
   try {
-
     const url =
       "https://accounts.spotify.com/api/token?grant_type=authorization_code&code=" +
       authorizationcode +
@@ -143,15 +164,22 @@ router.post('/spotifycodes', async(req,res)=>{
     console.log(err);
     res.status(500).send(err);
   }
-})
+});
 
-router.get('/spotifyAuthorize', (req,res) =>{
-    const client_id = process.env.REACT_APP_Client_id
-    const scope = "user-top-read"
-    const redirect_uri= "http://localhost:3000/accountcreation"
-    const url = "https://accounts.spotify.com/en/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&response_type=code&show_dialog=true"
-    res.redirect(url)
-  })
+router.get("/spotifyAuthorize", (req, res) => {
+  const client_id = process.env.REACT_APP_Client_id;
+  const scope = "user-top-read";
+  const redirect_uri = "http://localhost:3000/accountcreation";
+  const url =
+    "https://accounts.spotify.com/en/authorize?client_id=" +
+    client_id +
+    "&redirect_uri=" +
+    redirect_uri +
+    "&scope=" +
+    scope +
+    "&response_type=code&show_dialog=true";
+  res.redirect(url);
+});
 
 router.get("/info", async (req, res, next) => {
   const allDocData = [];
