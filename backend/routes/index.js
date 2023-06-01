@@ -37,7 +37,7 @@ router.post('/login', async(req,res)=>{
       data.push(doc.data().refresh_token)
       docid.push(doc.id)
     });
-    
+
     // After every login, refresh token should be used to make new access tokens
     try {
       const refresh_token = data[0]
@@ -56,7 +56,7 @@ router.post('/login', async(req,res)=>{
       fetch(url, { method: "post", headers: headers })
         .catch((err) => console.log(err))
         .then((res) => res.json())
-        .then((data) => { 
+        .then((data) => {
           const result = {uid: userCredential.user.uid, access_token: data.access_token}
           const docref = doc(db,"User", docid[0])
           const update = {

@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -12,6 +11,8 @@ import {
   FormControl,
 } from "@mui/material";
 import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../Login/UserProvider";
 
 function MyTopTracks() {
   const API_URL = "http://localhost:9000";
@@ -21,11 +22,16 @@ function MyTopTracks() {
   const handleChange = (event) => {
     setSelectedTerm(event.target.value);
   };
-
+  const { user } = useContext(UserContext);
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `${API_URL}/topSongs?time_range=${selectedTerm}`
+        `${API_URL}/topSongs?time_range=${selectedTerm}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        }
       );
       setSelectedData(response.data.topSongs);
     } catch (error) {

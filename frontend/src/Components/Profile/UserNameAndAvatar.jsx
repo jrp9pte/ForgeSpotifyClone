@@ -1,15 +1,22 @@
 import "./profile.css";
 import axios from "axios";
 import { Stack, Avatar, Typography, Paper } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../Login/UserProvider";
 
 function UserNameAndAvatar() {
+  const { user } = useContext(UserContext);
   const API_URL = "http://localhost:9000";
   const [selectedData, setSelectedData] = useState([]);
-
+  console.log(user);
+  console.log("what");
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_URL}/profile`);
+      const response = await axios.get(`${API_URL}/profile`, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      });
       setSelectedData(response.data.profile);
     } catch (error) {
       console.error("Error retrieving top artists:", error);

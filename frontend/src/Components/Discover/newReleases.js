@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -8,14 +7,21 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../Login/UserProvider";
 
 const NewReleases = () => {
+  const { user } = useContext(UserContext);
   const API_URL = "http://localhost:9000";
   const [selectedData, setSelectedData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_URL}/topRecs`);
+      const response = await axios.get(`${API_URL}/topRecs`, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      });
       setSelectedData(response.data.newReleases);
     } catch (error) {
       console.error("Error retrieving top artists:", error);
