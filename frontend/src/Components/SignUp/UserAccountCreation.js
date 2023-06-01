@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+
 import "./SignUp.css"
 function UserAccountCreation() {
     // const [username, setUserName] = useState('')
@@ -8,32 +9,36 @@ function UserAccountCreation() {
     const [access_token, setAccessToken] = useState('')
 
 
-    const getReturnedParamsFromSpotifyAuth = (hash) =>{
-        const stringAfterHashtag = hash.substring(1);
-        const paramsInUrl = stringAfterHashtag.split("&")
-        const paramsSplitUp = paramsInUrl.reduce((accumulater, currentValue)=>{
-            console.log(currentValue)
-            const[key, value] = currentValue.split("=")
-            accumulater[key] = value
-            return accumulater
-        }, {})
-        return paramsSplitUp
-    }
+  
     useEffect(()=>{
-        if (window.location.hash) {
-            const {
-                access_token,
-                expires_in,
-                token_type,
-            }= getReturnedParamsFromSpotifyAuth(window.location.hash)
-            setAccessToken(access_token)
+        if (window.location.search) {
+            // retrieves authorization code from url after redirect from spotifyAuth
+            const params = new URLSearchParams(window.location.search);
+            const authorizationCode  = (params.get("code"));
+            axios.post("http://localhost:9000/spotifycodes", {
+                authorizationcode: authorizationCode,
+            }).then((res) => console.log(res.data))
+            // const {
+            //     access_token,
+            //     expires_in,
+            //     token_type,
+            // }= getReturnedParamsFromSpotifyAuth(window.location.hash)
+            // setAccessToken(access_token)
+            // call api on authorization token
+
         }
+
+        //AQBD2L8MhfoAGvVCkdCniBgOVYA0tfpJsIHdUeOzqRXWvFKEHJBe35rqKn8-L4WYhyTrcpqphvb4oCDCrJdS2FrOEzKGn_-TqeFFjOnKq3I3nyggQXGT7uPlpnwFkP5v4L-60fmwHFOzU3jpvnlsVNgtlgas6kXGooeDfglYrHmjl5_ZhFk5V2sBbvGQQo-gMpl_F6oA9TM
         // This code prevents users from accessing account creation page
         // without first authorizing spotify account
         else{
-            window.location.href = "http://localhost:3000/signup"
+            // window.location.href = "http://localhost:3000/signup"
         }
     },[])        
+
+    const getAuthCode = () =>{
+
+    }
 
     const createAccount = (e) =>{
         e.preventDefault()

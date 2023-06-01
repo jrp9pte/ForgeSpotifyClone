@@ -39,7 +39,8 @@ function Login() {
     const [access_token, setAccessToken] = useState('')
    
 
-    
+    // On button press, it should go to spotify authorize, authorize,
+    // update access_token, and return access token/uid as res
     const handleLogin = (e) =>{
         e.preventDefault()
         axios.post("http://localhost:9000/login", {
