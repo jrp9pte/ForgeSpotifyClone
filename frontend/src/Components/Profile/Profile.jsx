@@ -1,4 +1,3 @@
-import { useReducer, useEffect, useState } from "react";
 import "./profile.css";
 import { Stack, IconButton, Typography, Box } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
