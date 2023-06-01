@@ -2,31 +2,38 @@ var express = require('express');
 const querystring = require('querystring');
 var router = express.Router();
 // const db = require("./firebase")
-const {admin,db} = require("./firebase")
-// const admin = require("./firebase")
+// const {admin,db} = require("./firebase")
+const db = require("./firebase")
+require('firebase/auth')
 
 const  {deleteDoc, updateDoc, setDoc, getDocs, collection,where, query, doc} = require("firebase/firestore")
-const { createUserWithEmailAndPassword} = require("firebase/auth");
+const { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} = require("firebase/auth");
 const { useRadioGroup } = require('@material-ui/core');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/login', (req,res)=>{
+
+router.post('/login', async(req,res)=>{
   const {username, password, email} = req.body
-  console.log("router works", password, email)
-  try{  
-    admin.auth().signInWithEmailAndPassword(email,password)
+  // Need to make sure email and password exists within db
+
+  // Search through db, fetch the user with matching uid, res.send(uid, spotify access_token)
+
+  // login page, authorize with spotify 
+  // get rid of username fields for login and signup, delete username field dont store it
+  // everytime we need a username 
+  try{
+    const auth = getAuth()
+    const userCredential = await signInWithEmailAndPassword(auth,email,password)
+    res.send(userCredential)
   }
   catch(error){
     console.log(error)
   }
-  // .then((userCredential) =>{
-  //     // const user = userCredential.user
-  //     // console.log(user)
-  // })
-  // .catch((error)=>console.log(error))
+  console.log("router works", password, email)
+  
 })
 
 router.post('/savetodb',async(req,res) =>{
@@ -43,19 +50,28 @@ router.post('/savetodb',async(req,res) =>{
   if (data.length === 0 ){
     res.send("created!")
     try{
-      admin.auth().createUser({email:email, 
-                                password: password,
-                                username: username,
-                                access_token: access_token})
-                                .then((userRecord)=>{
-                                  setDoc(doc(db, 'User', Math.random().toString()), {
-                                    username: username,
-                                    // password: password,
-                                    email: email,
-                                    access_token: access_token,
-                                    uid: userRecord.uid 
-                                  });
-                                });
+      const auth = getAuth()
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      await setDoc(doc(db, 'User', Math.random().toString()), {
+                                      username: username,
+                                      // password: password,
+                                      email: email,
+                                      access_token: access_token,
+                                      uid: userCredential.user.uid
+                                    });
+      // admin.auth().createUser({email:email, 
+      //                           password: password,
+      //                           username: username,
+      //                           access_token: access_token})
+      //                           .then((userRecord)=>{
+      //                             setDoc(doc(db, 'User', Math.random().toString()), {
+      //                               username: username,
+      //                               // password: password,
+      //                               email: email,
+      //                               access_token: access_token,
+      //                               uid: userRecord.uid 
+      //                             });
+      //                           });
     }
     catch(error){
       console.log(error)

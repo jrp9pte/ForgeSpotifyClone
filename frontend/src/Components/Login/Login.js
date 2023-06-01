@@ -18,7 +18,7 @@ function Login() {
             username:username,
             password: userPassword,
             email: userEmail
-        })
+        }).then((res) => console.log(res.data))
     }
     return (
         <>
