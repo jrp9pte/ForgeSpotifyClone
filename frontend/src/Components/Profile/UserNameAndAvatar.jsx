@@ -2,6 +2,7 @@ import './profile.css'
 import { Stack, Avatar, Typography, Paper } from "@mui/material";
 
 function UserNameAndAvatar() {
+	
 	return (
 		<Stack direction="row" mb='75px'>
 			<Avatar component={Paper} elevation={10} id="userAvatar" />

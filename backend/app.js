@@ -11,7 +11,7 @@ var likedSongsRouter = require("./routes/likedSongs");
 var topArtistsRouter = require("./routes/topArtists");
 var topSongsRouter = require("./routes/topSongs");
 var topRecsRouter = require("./routes/topRecs");
-
+var profileRouter = require("./routes/profile");
 const bodyParser = require("body-parser");
 var app = express();
 app.use((req, res, next) => {
@@ -45,7 +45,7 @@ app.use("/topArtists", topArtistsRouter);
 app.use("/topSongs", topSongsRouter);
 app.use("/topRecs", topRecsRouter);
 app.use("/likedSongs", likedSongsRouter);
-
+app.use("/profile", profileRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
