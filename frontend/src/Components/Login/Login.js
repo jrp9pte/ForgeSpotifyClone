@@ -1,10 +1,38 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import "./Login.css"
-
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Login() {
-    
+
+    const theme = createTheme({
+        status: {
+            danger: '#e53e3e',
+        },
+        palette: {
+            primary: {
+                main: '#d79f88',
+                darker: '#053e85',
+            },
+            neutral: {
+                main: '#64748B',
+                contrastText: '#fff',
+            },
+        },
+    });
+
     const [username, setUserName] = useState('')
     const [userPassword, setUserPassword] = useState('')
     const [userEmail, setUserEmail] = useState('')
@@ -20,6 +48,16 @@ function Login() {
             email: userEmail
         })
     }
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+
     return (
         <>
             <div className = "create">
