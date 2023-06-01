@@ -1,6 +1,6 @@
 import { useReducer } from "react"
 import "./profile.css"
-import { Stack, IconButton, Typography } from "@mui/material"
+import { Stack, IconButton, Typography, Box } from "@mui/material"
 import SettingsIcon from "@mui/icons-material/Settings"
 import Settings from "./Settings"
 import UserNameAndAvatar from "./UserNameAndAvatar"
@@ -36,33 +36,44 @@ function Profile() {
 
 	return (
 		<>
-			<Stack direction="row" justifyContent="flex-end">
-				<IconButton
-					id="settingsButton"
-					aria-label="settings"
-					size="large"
-					onClick={() => dispatch({ type: "toggleShowSettings" })}
-				>
-					<SettingsIcon fontSize="inherit" />
-				</IconButton>
-			</Stack>
-			<UserNameAndAvatar />
+			<Box id='banner'>
+				<Stack direction="row" justifyContent="flex-end">
+					<IconButton
+						id="settingsButton"
+						aria-label="settings"
+						size="large"
+						onClick={() => dispatch({ type: "toggleShowSettings" })}
+					>
+						<SettingsIcon fontSize="inherit" />
+					</IconButton>
+				</Stack>
+				<UserNameAndAvatar />
+			</Box>
 			<Settings state={state} dispatch={(obj) => dispatch(obj)} />
-			{state.showTopArtists && 
+			{state.showTopArtists && (
 				<>
-					<Typography id='sectionHeader' variant='h4'>My Top Artists</Typography>
+					<Typography id="sectionHeader" variant="h4">
+						My Top Artists
+					</Typography>
 					<MyTopArtists />
-				</>}
-			{state.showTopSongs && 
+				</>
+			)}
+			{state.showTopSongs && (
 				<>
-					<Typography id='sectionHeader' variant='h4'>My Top Tracks</Typography>
+					<Typography id="sectionHeader" variant="h4">
+						My Top Tracks
+					</Typography>
 					<MyTopTracks />
-				</>}
-			{state.showLikedSongs && 
+				</>
+			)}
+			{state.showLikedSongs && (
 				<>
-					<Typography id='sectionHeader' variant='h4'>My Liked Songs</Typography>
+					<Typography id="sectionHeader" variant="h4">
+						My Liked Songs
+					</Typography>
 					<MyLikedSongs />
-				</>}
+				</>
+			)}
 		</>
 	)
 }
