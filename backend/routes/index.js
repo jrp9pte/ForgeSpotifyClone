@@ -6,11 +6,28 @@ const {admin,db} = require("./firebase")
 // const admin = require("./firebase")
 
 const  {deleteDoc, updateDoc, setDoc, getDocs, collection,where, query, doc} = require("firebase/firestore")
-const { createUserWithEmailAndPassword} = require("firebase/auth")
+const { createUserWithEmailAndPassword} = require("firebase/auth");
+const { useRadioGroup } = require('@material-ui/core');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+router.post('/login', (req,res)=>{
+  const {username, password, email} = req.body
+  console.log("router works", password, email)
+  try{  
+    admin.auth().signInWithEmailAndPassword(email,password)
+  }
+  catch(error){
+    console.log(error)
+  }
+  // .then((userCredential) =>{
+  //     // const user = userCredential.user
+  //     // console.log(user)
+  // })
+  // .catch((error)=>console.log(error))
+})
 
 router.post('/savetodb',async(req,res) =>{
   // const auth = getAuth();
