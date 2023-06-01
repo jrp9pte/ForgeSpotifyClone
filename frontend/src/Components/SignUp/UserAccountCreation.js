@@ -1,55 +1,59 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+
 import "./SignUp.css"
 function UserAccountCreation() {
     // const [username, setUserName] = useState('')
     const [userPassword, setUserPassword] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [access_token, setAccessToken] = useState('')
+    const [refresh_token, setRefreshToken] = useState('')
 
 
-    const getReturnedParamsFromSpotifyAuth = (hash) =>{
-        const stringAfterHashtag = hash.substring(1);
-        const paramsInUrl = stringAfterHashtag.split("&")
-        const paramsSplitUp = paramsInUrl.reduce((accumulater, currentValue)=>{
-            console.log(currentValue)
-            const[key, value] = currentValue.split("=")
-            accumulater[key] = value
-            return accumulater
-        }, {})
-        return paramsSplitUp
-    }
-    useEffect(()=>{
-        if (window.location.hash) {
-            const {
-                access_token,
-                expires_in,
-                token_type,
-            }= getReturnedParamsFromSpotifyAuth(window.location.hash)
-            setAccessToken(access_token)
+  
+       
+
+
+    const createAccount = async(e) =>{
+        e.preventDefault()
+        if (window.location.search) {
+            // retrieves authorization code from url after redirect from spotifyAuth
+            const params = new URLSearchParams(window.location.search);
+            const authorizationCode  = (params.get("code"));
+            await axios.post("http://localhost:9000/spotifycodes", {
+                authorizationcode: authorizationCode,
+            }).then((res) => {
+                // setRefreshToken()
+                // setAccessToken()
+                // console.log(res.data.refresh_token)
+                // console.log(res.data.access_token)
+                axios.post("http://localhost:9000/savetodb", {
+                        password:userPassword,
+                        email:userEmail,
+                        access_token:res.data.access_token,
+                        refresh_token:res.data.refresh_token,
+                    }
+                ).then((res)=>{
+                    if (res.data === "created!"){
+                        window.location.href = "http://localhost:3000/login"
+                    }
+                    else { // Need to display to UI that email already exists
+                        alert("EMAIL EXISTS ALREADY")
+                    }
+                })
+                // qwerty@gmail.com
+            })
+            
+            
+            
         }
+
         // This code prevents users from accessing account creation page
         // without first authorizing spotify account
         else{
             window.location.href = "http://localhost:3000/signup"
         }
-    },[])        
-
-    const createAccount = (e) =>{
-        e.preventDefault()
-        axios.post("http://localhost:9000/savetodb", {
-                        password:userPassword,
-                        email:userEmail,
-                        access_token:access_token,
-                    }
-        ).then((res)=>{
-            if (res.data === "created!"){
-                window.location.href = "http://localhost:3000/login"
-            }
-            else { // Need to display to UI that email already exists
-                alert("EMAIL EXISTS ALREADY")
-            }
-        })
+        
     }
     return (
         <>
