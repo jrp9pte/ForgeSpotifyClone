@@ -56,7 +56,7 @@ function Alldiss() {
           "--TableCell-height": "40px",
           // the number is the amount of the header rows.
           "--TableHeader-height": "calc(1 * var(--TableCell-height))",
-          height: 330,
+          height: 500,
           overflow: "auto",
           background: (theme) =>
             `linear-gradient(${theme.vars.palette.background.surface} 30%, rgba(255, 255, 255, 0)),
