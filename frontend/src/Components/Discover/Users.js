@@ -31,25 +31,30 @@ const Users = () => {
       <Container maxWidth="lg">
         {" "}
         <Grid container spacing={1}>
-          {selectedData.map((user, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card
-                style={{
-                  height: "100%",
-                  marginBottom: "10px",
-                  backgroundColor: "#bb623e",
-                  color: "#e4eef6",
-                }}
-              >
-                <CardContent style={{ flexGrow: 1 }}>
-                  <Typography variant="h5" component="h2">
-                    {user.username || user.email}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>{" "}
+          {selectedData.map((user, index) => {
+            if (user.public) {
+              return (
+                <Grid item xs={12} sm={6} md={3} key={index}>
+                  <Card
+                    style={{
+                      height: "100%",
+                      marginBottom: "10px",
+                      backgroundColor: "#bb623e",
+                      color: "#e4eef6",
+                    }}
+                  >
+                    <CardContent style={{ flexGrow: 1 }}>
+                      <Typography variant="h5" component="h2">
+                        {user.username || user.email}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            }
+            return null;
+          })}
+        </Grid>
       </Container>
     </div>
   );
