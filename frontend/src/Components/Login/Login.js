@@ -48,7 +48,10 @@ function Login() {
 				password: userPassword,
 				email: userEmail,
 			})
-			.then((res) => setUser(res.data))
+			.then((res) => {
+				console.log(res.data)
+				setUser(res.data)
+			})
 	}
 
 	const [showPassword, setShowPassword] = useState(false)
@@ -87,28 +90,7 @@ function Login() {
 						/>
 					</Box>
 				</div>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						marginBottom: "10px",
-						marginTop: "10px",
-					}}
-				>
-					<Box style={{ width: "250px" }}>
-						<TextField
-							variant="outlined"
-							id="Username for Social"
-							name="email"
-							type="text"
-							required
-							label="UserName"
-							fullWidth
-							// value={userEmail}
-							onChange={(e) => setUserName(e.target.value)}
-						/>
-					</Box>
-				</div>
+				
 				<div
 					style={{
 						display: "flex",

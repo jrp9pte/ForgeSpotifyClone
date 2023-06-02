@@ -1,12 +1,13 @@
-var { db } = require("./firebase");
-
-var express = require("express");
-var router = express.Router();
-var { getFirestore, collection, getDocs } = require("firebase/firestore");
+const express = require("express");
+const admin = require("firebase-admin");
+const { getDocs, collection } = require("firebase/firestore");
+const { db } = require("./firebase");
+const router = express.Router();
 
 /* GET users listing. */
 router.get("/", async function (req, res, next) {
   try {
+    console.log(db);
     const usersCollectionRef = collection(db, "User");
     const snapshot = await getDocs(usersCollectionRef);
     const users = snapshot.docs.map((doc) => doc.data());
