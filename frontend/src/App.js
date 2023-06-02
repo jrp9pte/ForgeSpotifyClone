@@ -9,7 +9,6 @@ import TopArtists from "./Components/Discover/topArtists"
 import Discover from "./Components/Discover/Discover"
 import MyMusic from "./Components/MyMusic/MyMusic"
 import UserProvider from "./Components/Login/UserProvider"
-import Logout from "./Components/Logout/Logout"
 
 function App() {
 	return (
@@ -26,7 +25,6 @@ function App() {
 						path="/accountcreation"
 						element={<UserAccountCreation />}
 					/>
-					<Route path="/logout" element = {<Logout/>}/>
 				</Routes>
 				{/* <TopArtists></TopArtists> */}
 			</div>
