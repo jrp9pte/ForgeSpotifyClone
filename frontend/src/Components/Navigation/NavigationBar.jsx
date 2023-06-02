@@ -106,7 +106,7 @@ const NavigationBar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
@@ -219,14 +219,28 @@ const NavigationBar = () => {
                 fontSize="large"
               />
             </ListItem>
-            <ListItem button component={RouterLink} to="/">
-              <StyledLogoutIcon
-                className={location.pathname === "/profile" ? "active" : ""}
-                fontSize="large"
-              />
+            <ListItem
+              style={{ paddingLeft: 6 }}
+              button
+              component={RouterLink}
+              to="/"
+            >
+              <Button onClick={confirmationLogout} color="inherit">
+                <StyledLogoutIcon fontSize="large" />
+              </Button>
             </ListItem>
           </List>
         </Drawer>
+        <Popups trigger={buttonPopup} setTrigger={setButtonPopup}>
+          <div className="popup-inner">
+            <h2 style={{ color: "black", textAlign: "center" }}>
+              Are you sure you want to log out?
+            </h2>
+            <button className="logout-btn" onClick={finalLogout}>
+              Logout
+            </button>
+          </div>
+        </Popups>
       </AppBar>
       <Toolbar />
     </>
