@@ -1,7 +1,15 @@
-import { Button, ButtonGroup, Container, Typography, Box } from "@mui/material"
+import {
+	Button,
+	ButtonGroup,
+	Container,
+	Typography,
+	Box,
+	IconButton,
+} from "@mui/material"
 import React, { useState } from "react"
 import IndividualMessage from "./IndividualMessage"
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
+import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 
 function Messages() {
 	const users = [
@@ -61,10 +69,15 @@ function Messages() {
 					backgroundColor: "#BB623E",
 				}}
 			>
-				<Typography variant="h6" sx={{ p: "20px" }}>
-					MESSAGES
-				</Typography>
-				<Box sx={{ maxHeight: '475px', overflowY: "scroll" }}>
+				<Box sx={{ display: "flex", justifyContent: "center" }}>
+					<Typography variant="h6" color="white" sx={{ p: "20px" }}>
+						MESSAGES
+					</Typography>
+					<IconButton>
+						<OpenInNewIcon sx={{ color: 'white'}}/>
+					</IconButton>
+				</Box>
+				<Box sx={{ maxHeight: "475px", overflowY: "scroll" }}>
 					{displayAllUsers && (
 						<ButtonGroup fullWidth orientation="vertical">
 							{buttons}

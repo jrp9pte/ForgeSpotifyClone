@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Box, IconButton, TextField, Typography } from "@mui/material"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send"
 import Conversation from "./Conversation"
 
 function IndividualMessage({ user, switchToAllMessages }) {
@@ -10,7 +10,7 @@ function IndividualMessage({ user, switchToAllMessages }) {
 	return (
 		<Box
 			fullWidth
-			backgroundColor='white'
+			backgroundColor="white"
 			sx={{
 				height: "450px",
 				borderStyle: "solid",
@@ -33,9 +33,15 @@ function IndividualMessage({ user, switchToAllMessages }) {
 				<Typography variant="h6">{user}</Typography>
 			</Box>
 			<Conversation user={user} />
-			<Box fullWidth pt='10px' mt='20px' mx="calc(50px + 1vw)" sx={{ backgroundColor: 'white' }}>
+			<Box
+				fullWidth
+				pt="10px"
+				mt="20px"
+				mx="calc(50px + 1vw)"
+				sx={{ backgroundColor: "white" }}
+			>
 				<TextField
-					sx={{ width: '80%' }}
+					sx={{ width: "80%" }}
 					variant="standard"
 					onChange={(e) => setNewMessage(e.target.value)}
 					placeholder="Enter a Message"

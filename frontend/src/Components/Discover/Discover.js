@@ -18,14 +18,28 @@ const Discover = () => {
 			<NewReleases />
 
 			<Container maxWidth="lg">
-				<Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: "80px" }}>
-					<ToggleButtonGroup exclusive sx={{pl: '30px'}}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "flex-start",
+						mt: "80px",
+					}}
+				>
+					<ToggleButtonGroup
+						square
+						exclusive
+						sx={{ pl: "30px", backgrounColor: "#BB623E" }}
+					>
 						<ToggleButton
 							selected={!showMessages}
 							onClick={() => setShowMessages(false)}
-							backgrounColor='#BB623E'
+							square
 							sx={{
-								backgrounColor: '#BB623E'
+								"&.Mui-selected, &.Mui-selected:hover": {
+									color: "white",
+									backgroundColor: "#BB623E",
+									borderWidth: "0px",
+								},
 							}}
 						>
 							Forums
@@ -33,6 +47,13 @@ const Discover = () => {
 						<ToggleButton
 							selected={showMessages}
 							onClick={() => setShowMessages(true)}
+							sx={{
+								"&.Mui-selected, &.Mui-selected:hover": {
+									color: "white",
+									backgroundColor: "#BB623E",
+									borderWidth: "0px",
+								},
+							}}
 						>
 							Messages
 						</ToggleButton>

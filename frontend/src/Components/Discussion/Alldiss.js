@@ -44,7 +44,7 @@ function Alldiss() {
         autoComplete="off"
       >
         <FormControl variant="standard">
-          <h3>CURRENT DISCUSSIONS </h3>
+          <Typography variant='h6' color='white'>CURRENT DISCUSSIONS</Typography>
         </FormControl>
 
         <FormControl variant="standard">
