@@ -49,7 +49,7 @@ function Login() {
 			})
 			.then((res) => {
 				console.log(res.data.access_token)
-				console.log(res.data.refresh_token)
+				console.log(res.data.uid)
 				const userData = res.data
 				axios.post("http://localhost:9000/GetUsername",{
 					access_token: res.data.access_token
@@ -61,13 +61,17 @@ function Login() {
 						password: userPassword,
 					})
 				})
+				window.addEventListener('beforeunload', function(event) {
+					window.localStorage.setItem("currentUser", userData);
+				})
+				console.log(window.localStorage.getItem("currentUser"))
+				window.location.href = "http://localhost:3000/profile"
 				//Store data then redirect to homepage to local storage
 				// when res.data is not undefined
 				// window.location.setItem("currentUserUid", res.data.uid)
-				setUser(userData)
+				// setUser(userData)
 			})
 	}
-
 	const [showPassword, setShowPassword] = useState(false)
 
 	const handleClickShowPassword = () => setShowPassword((show) => !show)
