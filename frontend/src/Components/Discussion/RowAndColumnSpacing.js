@@ -17,19 +17,18 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function RowAndColumnSpacing() {
   return (
-    // <Container maxWidth="lg">
-    <Box sx={{ width: "100%", marginBottom: 15 }}>
-      <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2 }}>
-        <Grid item xs={8}>
-          <Item style={{ backgroundColor: "#BB623E" }}>
-            {" "}
-            <div>
-              <Alldiss />
-            </div>
-          </Item>
+    <Container maxWidth="lg">
+      <Box sx={{ width: "100%", marginBottom: 15 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Item style={{ backgroundColor: "#BB623E" }}>
+              <div>
+                <Alldiss />
+              </div>
+            </Item>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
-    // </Container>
+      </Box>
+    </Container>
   );
 }
