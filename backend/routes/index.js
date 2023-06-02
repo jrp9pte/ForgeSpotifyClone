@@ -86,6 +86,7 @@ router.post('/login', async(req,res)=>{
           const result = {
             uid: userCredential.user.uid,
             access_token: data.access_token,
+            docid: docid[0],
           };
           const docref = doc(db, "User", docid[0]);
           const update = {
