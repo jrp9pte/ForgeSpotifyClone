@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Popups from "../Logout/Popup";
-import SmartButtonIcon from '@mui/icons-material/SmartButton';
+import SmartButtonIcon from "@mui/icons-material/SmartButton";
 import { styled } from "@mui/system";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -17,24 +17,23 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import HomeIcon from "@mui/icons-material/Home";
-import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
+import { createMuiTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createMuiTheme({
   palette: {
-    primary:{ main:"#D79F88", contrastText:"#0A191F"},
+    primary: { main: "#D79F88", contrastText: "#0A191F" },
     background: {
-      default: "#BB623E"
-    }
+      default: "#BB623E",
+    },
   },
   overrides: {
     MuiButton: {
       raisedPrimary: {
-        color: 'white',
+        color: "white",
       },
     },
-  }
+  },
 });
-
 
 const StyledHomeIcon = styled(HomeIcon)(({ theme }) => ({
   color: "black",
@@ -46,7 +45,7 @@ const StyledHomeIcon = styled(HomeIcon)(({ theme }) => ({
   },
 }));
 
-const StyledLogoutIcon = styled(LogoutIcon)(({ theme })=> ({
+const StyledLogoutIcon = styled(LogoutIcon)(({ theme }) => ({
   color: "black",
   "&:hover": {
     color: "#bb623e",
@@ -54,9 +53,9 @@ const StyledLogoutIcon = styled(LogoutIcon)(({ theme })=> ({
   "&.active": {
     color: "#bb623e",
   },
-}))
+}));
 
-const StyledLogoutConfirmIcon = styled(SmartButtonIcon)(({ theme })=> ({
+const StyledLogoutConfirmIcon = styled(SmartButtonIcon)(({ theme }) => ({
   color: "black",
   "&:hover": {
     color: "#bb623e",
@@ -64,7 +63,7 @@ const StyledLogoutConfirmIcon = styled(SmartButtonIcon)(({ theme })=> ({
   "&.active": {
     color: "#bb623e",
   },
-}))
+}));
 
 const StyledAccountBoxIcon = styled(AccountBoxIcon)(({ theme }) => ({
   color: "black",
@@ -88,26 +87,22 @@ const StyledLibraryMusicIcon = styled(LibraryMusicIcon)(({ theme }) => ({
 const NavigationBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [showLogout, setShowLogout] = useState(false)
+  const [showLogout, setShowLogout] = useState(false);
   const location = useLocation();
-  const [buttonPopup, setButtonPopup] = useState(false)
-  const confirmationLogout = (e) =>{
-      e.preventDefault()
-      setButtonPopup(true)
-  }
-    
+  const [buttonPopup, setButtonPopup] = useState(false);
+  const confirmationLogout = (e) => {
+    e.preventDefault();
+    setButtonPopup(true);
+  };
 
-  const finalLogout = (e) =>{
-      console.log(window.localStorage.getItem("currentUserAT"))
-      console.log(window.localStorage.getItem("currentUserUID"))
-      window.localStorage.removeItem("currentUserAT")
-      window.localStorage.removeItem("currentUserUID")
-      window.location.href = "http://localhost:3000"
-      e.preventDefault()
-  }
-
-
-
+  const finalLogout = (e) => {
+    console.log(window.localStorage.getItem("currentUserAT"));
+    console.log(window.localStorage.getItem("currentUserUID"));
+    window.localStorage.removeItem("currentUserAT");
+    window.localStorage.removeItem("currentUserUID");
+    window.location.href = "http://localhost:3000";
+    e.preventDefault();
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -179,25 +174,19 @@ const NavigationBar = () => {
                   fontSize="large"
                 />
               </Button>
-              <Button onClick = {confirmationLogout} color="inherit">
-                <StyledLogoutIcon
-                  fontSize="large"
-                />
+              <Button onClick={confirmationLogout} color="inherit">
+                <StyledLogoutIcon fontSize="large" />
               </Button>
               <Popups trigger={buttonPopup} setTrigger={setButtonPopup}>
-                      <h2 style={{color: "black"}}>
-                          Are you sure you want to log out?
-                      </h2>
-                      <div className = "popup-inner">
-                        <button className = "logout-btn" onClick={finalLogout}>
-                            Logout
-                        </button>
-                      </div>
+                <div className="popup-inner">
+                  <h2 style={{ color: "black", textAlign: "center" }}>
+                    Are you sure you want to log out?
+                  </h2>
+                  <button className="logout-btn" onClick={finalLogout}>
+                    Logout
+                  </button>
+                </div>
               </Popups>
-
-
-
-             
             </div>
           )}
         </Toolbar>
@@ -236,9 +225,6 @@ const NavigationBar = () => {
                 fontSize="large"
               />
             </ListItem>
-            
-
-
           </List>
         </Drawer>
       </AppBar>
