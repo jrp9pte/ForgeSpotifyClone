@@ -12,6 +12,34 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
+router.post("/GetUsername", async(req,res)=>{
+  const {access_token} = req.body
+  const response = await axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    // Extract the user profile from the API response
+  const profile = response.data;
+  res.json({ profile });
+})
+
+router.post('/SetUsername', async(req,res)=>{
+  const {username, email, password} = req.body
+  const userCollection = collection(db, "User");
+  const q = query(userCollection, where("email", "==", email));
+  const querySnapshot = await getDocs(q)
+  let docid = []
+  querySnapshot.forEach((doc) => {
+    docid.push(doc.id);
+  });
+  const docref = doc(db, "User", docid[0]);
+  const update = {
+    username: username
+  }
+  updateDoc(docref,update)
+})
 
 router.post('/login', async(req,res)=>{
   const {password, email} = req.body
@@ -19,7 +47,7 @@ router.post('/login', async(req,res)=>{
   try{
     const auth = getAuth()
     const userCredential = await signInWithEmailAndPassword(auth,email,password)
-    // Need to send error messages back stating invalid email, account already exists,
+    // TODO: Need to send error messages back stating invalid email, account already exists,
     // invalid credentials
     console.log(userCredential)
     const q = query(collection(db,'User'), where('uid', "==", userCredential.user.uid))
@@ -64,14 +92,9 @@ router.post('/login', async(req,res)=>{
             access_token: data.access_token
           }
           updateDoc(docref,update)
+          
           res.send(result)
-          // const response =  axios.get("https://api.spotify.com/v1/me", {
-          //   headers: {
-          //     Authorization: `Bearer ${data.access_token}`,
-          //   },
-          // });
-          // const profile = response.data;
-          // console.log(profile)
+          
           // Using new access token, call to spotify and grab username to save to doc
 
         })
@@ -106,6 +129,7 @@ router.post("/savetodb", async (req, res) => {
       );
       await setDoc(doc(db, "User", Math.random().toString()), {
         email: email,
+        username: "placeholder",
         access_token: access_token,
         refresh_token: refresh_token,
         uid: userCredential.user.uid,

@@ -42,15 +42,29 @@ function Login() {
 
 	const handleLogin = (e) => {
 		e.preventDefault()
-		axios
-			.post("http://localhost:9000/login", {
+		axios.post("http://localhost:9000/login", {
 				// username: username,
 				password: userPassword,
 				email: userEmail,
 			})
 			.then((res) => {
-				console.log(res.data)
-				setUser(res.data)
+				console.log(res.data.access_token)
+				console.log(res.data.refresh_token)
+				const userData = res.data
+				axios.post("http://localhost:9000/GetUsername",{
+					access_token: res.data.access_token
+				}).then((res)=>{
+					const username = res.data.profile.display_name
+					axios.post("http://localhost:9000/SetUsername",{
+						username: username,
+						email: userEmail,
+						password: userPassword,
+					})
+				})
+				//Store data then redirect to homepage to local storage
+				// when res.data is not undefined
+				// window.location.setItem("currentUserUid", res.data.uid)
+				setUser(userData)
 			})
 	}
 
