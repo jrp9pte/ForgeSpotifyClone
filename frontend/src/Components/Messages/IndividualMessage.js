@@ -1,12 +1,34 @@
-import React, { useState } from "react"
+import React, { useState,useContext,  } from "react"
 import { Box, IconButton, TextField, Typography } from "@mui/material"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import SendIcon from '@mui/icons-material/Send';
 import Conversation from "./Conversation"
-
-function IndividualMessage({ user, switchToAllMessages }) {
+import Button from "@mui/material/Button";
+import { UserContext } from "../Login/UserProvider";
+import axios from "axios";
+function IndividualMessage({ username, switchToAllMessages }) {
 	const [newMessage, setNewMessage] = useState("")
-
+	const { user } = useContext(UserContext);
+	const sendMessage = async(e) =>{
+		e.preventDefault()
+		// Finds specific message doc ref
+		// we have currentuser, can search through its message array
+		// and search up by {user}. and search again using {username}
+		axios.post("http://localhost:9000/getMessageReference",{
+			uid: user.uid,
+			access_token: user.access_token,
+			username: username,
+		}).then((res)=>{
+			const refstring = res.data.refstring
+			const currentUsername = res.data.currentUsername
+			console.log(refstring)
+			axios.post("http://localhost:9000/sendMessage",{
+				refstring: refstring,
+				message: newMessage,
+				currentUsername: currentUsername,
+			})
+		})
+	}
 	return (
 		<Box
 			fullWidth
@@ -29,19 +51,21 @@ function IndividualMessage({ user, switchToAllMessages }) {
 				>
 					<ArrowBackIosNewIcon />
 				</IconButton>
-				<Typography variant="h6">{user}</Typography>
+				<Typography variant="h6">{username}</Typography>
 			</Box>
-			<Conversation user={user} />
-			<Box>
-				<TextField
-					width="200%"
-					variant="standard"
-					onChange={(e) => setNewMessage(e.target.value)}
-					placeholder="Enter a Message"
-				/>
-				<IconButton>
-					<SendIcon />
-				</IconButton>
+			<Conversation user={username} />
+			<Box >
+				<form onSubmit={sendMessage}>
+					<TextField
+						width="200%"
+						variant="standard"
+						onChange={(e) => setNewMessage(e.target.value)}
+						placeholder="Enter a Message"
+					/>
+					<Button onClick={sendMessage}>
+						<SendIcon onSubmit={sendMessage}/>
+					</Button>
+				</form>
 			</Box>
 		</Box>
 	)

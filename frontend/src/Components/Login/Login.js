@@ -86,6 +86,7 @@ function Login() {
 				window.addEventListener('beforeunload', function(event) {
 					window.localStorage.setItem("currentUserAT", res.data.access_token);
 					window.localStorage.setItem("currentUserUID", res.data.uid);
+					window.localStorage.setItem("docid", res.data.docid);
 				})
 				// console.log("AT2",window.localStorage.getItem("currentUserAT"))
 				window.location.href = "http://localhost:3000/profile"

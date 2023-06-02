@@ -17,23 +17,6 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import HomeIcon from "@mui/icons-material/Home";
-import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
-
-const theme = createMuiTheme({
-  palette: {
-    primary:{ main:"#D79F88", contrastText:"#0A191F"},
-    background: {
-      default: "#BB623E"
-    }
-  },
-  overrides: {
-    MuiButton: {
-      raisedPrimary: {
-        color: 'white',
-      },
-    },
-  }
-});
 
 
 const StyledHomeIcon = styled(HomeIcon)(({ theme }) => ({

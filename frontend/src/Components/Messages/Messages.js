@@ -22,7 +22,7 @@ function Messages() {
 				{displayAllUsers && (
 					<ButtonGroup fullWidth orientation="vertical">{buttons}</ButtonGroup>
 				)}
-				{!displayAllUsers && <IndividualMessage user={userToMessage} switchToAllMessages={() => setDisplayAllUsers(true)} />}
+				{!displayAllUsers && <IndividualMessage username={userToMessage} switchToAllMessages={() => setDisplayAllUsers(true)} />}
 			</Container>
 		</>
 	)
