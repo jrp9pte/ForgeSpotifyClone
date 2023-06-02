@@ -32,8 +32,9 @@ function IndividualMessage({ username, switchToAllMessages }) {
 	return (
 		<Box
 			fullWidth
+			backgroundColor='white'
 			sx={{
-				height: "550px",
+				height: "450px",
 				borderStyle: "solid",
 			}}
 		>

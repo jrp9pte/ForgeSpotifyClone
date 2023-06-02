@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from "@mui/material"
 import React from "react"
 
-function Conversation({user}) {
+function Conversation({ user }) {
 	const testMessages = [
 		{ user: "user1", text: "Hello!" },
 		{ user: "user2", text: "Hey, how are you?" },
@@ -9,6 +9,14 @@ function Conversation({user}) {
 			user: "user1",
 			text: "IM GREAT!!! OMG DID YOU SEE THAT NEW TAYLOW SWIFT SONG",
 		},
+		{ user: "user2", text: "thats so cool idrc" },
+		{ user: "user1", text: "thats so cool idrc" },
+		{ user: "user2", text: "thats so cool idrc" },
+		{ user: "user1", text: "thats so cool idrc" },
+		{ user: "user2", text: "thats so cool idrc" },
+		{ user: "user1", text: "thats so cool idrc" },
+		{ user: "user2", text: "thats so cool idrc" },
+		{ user: "user1", text: "thats so cool idrc" },
 	]
 
 	const displayMessages = testMessages.map((message) => {
@@ -18,12 +26,23 @@ function Conversation({user}) {
 					sx={{
 						display: "flex",
 						justifyContent: "flex-end",
-						mr: "100px",
+						mr: "calc(50px + 1vw)",
 					}}
 				>
-					<Paper maxWidth="200px" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', p: "15px" }}>
+					<Paper
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "flex-start",
+							p: "15px",
+							maxWidth: "40vw",
+							backgroundColor: "#D79F88",
+						}}
+					>
 						<Typography variant="h6">You:</Typography>
-						<Typography variant="body1">{message.text}</Typography>
+						<Typography variant="body1" align="left">
+							{message.text}
+						</Typography>
 					</Paper>
 				</Box>
 			)
@@ -33,26 +52,34 @@ function Conversation({user}) {
 					sx={{
 						display: "flex",
 						justifyContent: "flex-start",
-						ml: "100px",
+						ml: "calc(50px + 1vw)",
 					}}
 				>
-					<Paper maxWidth="200px" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', p: "15px" }}>
-						<Typography variant="h6">{message.user + ":"}</Typography>
-						<Typography variant="body1">{message.text}</Typography>
+					<Paper
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "flex-start",
+							p: "15px",
+							maxWidth: "40vw",
+						}}
+					>
+						<Typography variant="h6">{user + ":"}</Typography>
+						<Typography variant="body1" align="left">
+							{message.text}
+						</Typography>
 					</Paper>
 				</Box>
 			)
 		}
 	})
 
-	console.log(displayMessages)
-
 	return (
 		<Box
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				height: "400px",
+				height: "300px",
 				overflowY: "scroll",
 			}}
 		>
