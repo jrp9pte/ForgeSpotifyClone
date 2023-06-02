@@ -13,13 +13,13 @@ function Messages() {
 	}
 
 	const buttons = users.map((user) => {
-		<Button onClick={() => switchToUserMessage(user)}>{user}</Button>
+		return <Button onClick={() => switchToUserMessage(user)}>{user}</Button>
 	})
 
 	return (
 		<>
-			<ButtonGroup>{buttons}</ButtonGroup>
-            <IndividualMessage user={user} />
+			{displayAllUsers && <ButtonGroup orientation="vertical">{buttons}</ButtonGroup>}
+            {!displayAllUsers && <IndividualMessage user={userToMessage} />}
 		</>
 	)
 }
