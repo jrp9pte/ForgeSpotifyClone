@@ -5,7 +5,7 @@ const axios = require('axios')
 const db = require("./firebase")
 require('firebase/auth')
 
-const  {deleteDoc, updateDoc, setDoc, getDocs, collection,where, query, doc} = require("firebase/firestore")
+const  {deleteDoc, updateDoc, setDoc, getDocs,getDoc, collection,where, query, doc} = require("firebase/firestore")
 const { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} = require("firebase/auth");
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -83,6 +83,7 @@ router.post('/login', async(req,res)=>{
         .catch((err) => console.log(err))
         .then((res) => res.json())
         .then((data) => {
+
           const result = {
             uid: userCredential.user.uid,
             access_token: data.access_token,
@@ -194,4 +195,53 @@ router.get("/info", async (req, res, next) => {
   docs.forEach((doc) => console.log(doc.data()));
   res.json({ result: allDocData });
 });
+
+
+router.post("/sendMessage", async(req,res)=>{
+  const {refstring, message, currentUsername} = req.body
+
+  const docref = doc(db,"Messages", refstring)
+  const MessageDoc =  await getDoc(docref)
+  if (MessageDoc.exists()) {
+    let chats = MessageDoc.data().chats
+    chats.push({[currentUsername]: message})
+    console.log(chats)
+    setDoc(docref,{
+      chats: chats,
+    })
+  }
+  else{
+    console.log("DNE")
+  }
+}) 
+
+router.post("/getMessageReference", async(req,res)=>{
+    const {uid, access_token, username} = req.body;
+    const userCollection = collection(db, "User");
+    console.log(uid)
+    const q = query(userCollection, where("uid", "==", uid));
+    const querySnapshot = await getDocs(q);
+    let data = [];
+    querySnapshot.forEach((doc) => {
+      data.push(doc.data());
+    })
+    const currentUsername = data[0].username
+    const messageArray = data[0].messages
+    // for(let i =0; i < messageArray.length; ++i){
+    //   console.log(messageArray[i].field)
+    // }
+    
+    messageArray.forEach(function(item){
+      for (var key in item){
+        if (key === username){
+          const specificMessageRef = item[key]
+          res.send({refstring: specificMessageRef.id, currentUsername: currentUsername})
+          console.log(specificMessageRef.id)
+          break;
+        }
+      }
+    })
+
+})
+
 module.exports = router;
