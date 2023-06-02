@@ -9,7 +9,7 @@ const Users = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_URL}/users`);
-      setSelectedData(response.data);
+      setSelectedData(response.data.result);
     } catch (error) {
       console.error("Error retrieving users:", error);
     }
@@ -35,7 +35,7 @@ const Users = () => {
             >
               <CardContent>
                 <Typography variant="h5" component="h2">
-                  {user.username}
+                  {user.username || user.email}
                 </Typography>
               </CardContent>
             </Card>
