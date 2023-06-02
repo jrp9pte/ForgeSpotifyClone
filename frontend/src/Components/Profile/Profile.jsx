@@ -21,8 +21,6 @@ function Profile() {
   const { user } = useContext(UserContext);
   const API_URL = "http://localhost:9000";
   const [selectedData, setSelectedData] = useState([]);
-  console.log(user);
-  console.log("what");
   const fetchData = async () => {
     try {
       const response = await axios.get(`${API_URL}/profile`, {
