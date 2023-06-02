@@ -16,6 +16,23 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { UserContext } from "./UserProvider"
 
+
+const theme = createTheme({
+	status: {
+		danger: "#e53e3e",
+	},
+	palette: {
+		primary: {
+			main: "#d79f88",
+			darker: "#053e85",
+		},
+		neutral: {
+			main: "#64748B",
+			contrastText: "#fff",
+		},
+	},
+})
+
 function Login() {
 	const { user, setUser } = useContext(UserContext)
 	useEffect(()=>{
@@ -88,8 +105,8 @@ function Login() {
 
 	return (
 		<>
-			<h1>Log into Spotify</h1>
-
+			<h1>Log into SpotifySocial</h1>
+			<h3>Harmonize Your World: Connect, Share, and Groove!</h3>
 			{/* _______ */}
 			<form onSubmit={handleLogin}>
 				<div
@@ -122,7 +139,7 @@ function Login() {
 						marginBottom: "10px",
 					}}
 				>
-					<Box style={{ width: "250px" }}>
+					<Box style={{ width: "250px", marginTop:"1REM"}}>
 						<FormControl sx={{ width: "100%" }} variant="outlined">
 							<InputLabel htmlFor="outlined-adornment-password">
 								Password
@@ -173,3 +190,4 @@ function Login() {
 }
 
 export default Login
+export { theme };
