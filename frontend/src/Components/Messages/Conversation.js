@@ -7,16 +7,16 @@ function Conversation({ user }) {
 		{ user: "user2", text: "Hey, how are you?" },
 		{
 			user: "user1",
-			text: "IM GREAT!!! OMG DID YOU SEE THAT NEW TAYLOW SWIFT SONG",
+			text: "IM GREAT!!! DID YOU SEE THAT NEW TAYLOW SWIFT SONG",
 		},
-		{ user: "user2", text: "thats so cool idrc" },
-		{ user: "user1", text: "thats so cool idrc" },
-		{ user: "user2", text: "thats so cool idrc" },
-		{ user: "user1", text: "thats so cool idrc" },
-		{ user: "user2", text: "thats so cool idrc" },
-		{ user: "user1", text: "thats so cool idrc" },
-		{ user: "user2", text: "thats so cool idrc" },
-		{ user: "user1", text: "thats so cool idrc" },
+		{ user: "user2", text: "Yeah it was pretty cool" },
+		{ user: "user1", text: "I've heard her concerts are amazing" },
+		{ user: "user2", text: "No way that sounds so fun" },
+		{ user: "user1", text: "I really like her music. I think a lot of people underappreciate it and she should definitiely get more recognition for the emounf of thought she puts into her songs" },
+		{ user: "user2", text: "Yeah I definitely agree" },
+		{ user: "user1", text: "IKR" },
+		{ user: "user2", text: "I also really like Katy Perry I wish she had more songs to listen to" },
+		{ user: "user1", text: "She's a really good artist too" },
 	]
 
 	const displayMessages = testMessages.map((message) => {
@@ -35,7 +35,7 @@ function Conversation({ user }) {
 							flexDirection: "column",
 							alignItems: "flex-start",
 							p: "15px",
-							maxWidth: "40vw",
+							maxWidth: "30vw",
 							backgroundColor: "#D79F88",
 						}}
 					>
@@ -61,10 +61,10 @@ function Conversation({ user }) {
 							flexDirection: "column",
 							alignItems: "flex-start",
 							p: "15px",
-							maxWidth: "40vw",
+							maxWidth: "30vw",
 						}}
 					>
-						<Typography variant="h6">{user + ":"}</Typography>
+						<Typography variant="h6">{"RichyLeeeeee:"}</Typography>
 						<Typography variant="body1" align="left">
 							{message.text}
 						</Typography>

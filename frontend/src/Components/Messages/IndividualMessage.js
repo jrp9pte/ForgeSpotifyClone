@@ -64,7 +64,7 @@ function IndividualMessage({ username, switchToAllMessages }) {
 			>
 				<form onSubmit={sendMessage}>
 					<TextField
-						width="200%"
+						sx={ {width:"80%" }}
 						variant="standard"
 						onChange={(e) => setNewMessage(e.target.value)}
 						placeholder="Enter a Message"

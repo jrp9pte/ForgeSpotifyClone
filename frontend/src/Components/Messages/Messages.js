@@ -6,24 +6,23 @@ import {
 	Box,
 	IconButton,
 } from "@mui/material"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import IndividualMessage from "./IndividualMessage"
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
+import axios from "axios"
 
 function Messages() {
+	const API_URL = "http://localhost:9000"
+	const [selectedData, setSelectedData] = useState([])
+
+	console.log(selectedData)
 	const users = [
-		"Anisha",
-		"Jay",
-		"Richard",
-		"Zaid",
-		"Test",
-		"Test",
-		"Test",
-		"Test",
-		"Test",
-		"Test",
-		"Test",
+		"ehaller",
+		"RichyLeeeeee",
+		"ArtisticAnna",
+		"poppy",
+		"12345678",
 	]
 	const [displayAllUsers, setDisplayAllUsers] = useState(true)
 	const [userToMessage, setUserToMessage] = useState("")
@@ -74,7 +73,7 @@ function Messages() {
 						MESSAGES
 					</Typography>
 					<IconButton>
-						<OpenInNewIcon sx={{ color: 'white'}}/>
+						<OpenInNewIcon sx={{ color: "white" }} />
 					</IconButton>
 				</Box>
 				<Box sx={{ maxHeight: "475px", overflowY: "scroll" }}>
