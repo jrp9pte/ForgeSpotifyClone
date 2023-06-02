@@ -61,10 +61,12 @@ function Login() {
 						password: userPassword,
 					})
 				})
+				// console.log("AT",res.data.access_token)
 				window.addEventListener('beforeunload', function(event) {
-					window.localStorage.setItem("currentUser", userData);
+					window.localStorage.setItem("currentUserAT", res.data.access_token);
+					window.localStorage.setItem("currentUserUID", res.data.uid);
 				})
-				console.log(window.localStorage.getItem("currentUser"))
+				// console.log("AT2",window.localStorage.getItem("currentUserAT"))
 				window.location.href = "http://localhost:3000/profile"
 				//Store data then redirect to homepage to local storage
 				// when res.data is not undefined
