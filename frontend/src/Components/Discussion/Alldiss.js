@@ -6,6 +6,9 @@ import Table from "@mui/material/Table";
 import Typography from "@mui/material/Typography";
 import Sheet from "@mui/joy/Sheet";
 import FormDialog from "./FormDialog.js";
+import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import Avatar from "@mui/material/Avatar";
 
 function Alldiss() {
   const [events, setEvents] = useState([]);
@@ -32,10 +35,22 @@ function Alldiss() {
 
   return (
     <div>
-      <Typography level="body2" textAlign="center" sx={{ mb: 2 }}>
-        <h3>CURRENT DISCUSSIONS </h3>
-        <FormDialog />
-      </Typography>
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1 },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <FormControl variant="standard">
+          <h3>CURRENT DISCUSSIONS </h3>
+        </FormControl>
+
+        <FormControl variant="standard">
+          <FormDialog />
+        </FormControl>
+      </Box>
       <Sheet
         sx={{
           "--TableCell-height": "40px",
@@ -75,7 +90,11 @@ function Alldiss() {
                         <Dissmsg
                           user={obj.user}
                           message={obj.message}
+                          replies={obj.replies}
+                          date={obj.date}
                           eventid={eventIDs[index]}
+                          zdel={obj.zdel}
+                          zmes={obj.zmes}
                         />
                       </td>
                     </div>
@@ -85,6 +104,9 @@ function Alldiss() {
           </tbody>
         </Table>
       </Sheet>
+      {/* <FormControl variant="standard">
+        <FormDialog />
+      </FormControl> */}
     </div>
   );
 }

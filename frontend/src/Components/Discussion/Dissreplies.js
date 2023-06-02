@@ -10,15 +10,23 @@ import ListItemText from "@mui/material/ListItemText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import PersonIcon from "@mui/icons-material/Person";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 import ForumIcon from "@mui/icons-material/Forum";
+import TextField from "@mui/material/TextField";
+import SendIcon from "@mui/icons-material/Send";
+import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
+import { useState } from "react";
+import { doc, updateDoc, Timestamp } from "@firebase/firestore";
+import db from "../../firebase";
+
+// import { useEffect, useState } from "react";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, open } = props;
+  const [ereply, setEreply] = useState("");
+  const [ereplies, setEreplies] = useState([]);
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -27,12 +35,32 @@ function SimpleDialog(props) {
   const handleListItemClick = (value) => {
     onClose(value);
   };
+  async function addreply() {
+    try {
+      const allreplies = [...props.replies, ereply];
+
+      const docRef = await updateDoc(doc(db, "Disspost", props.eventid), {
+        replies: allreplies,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 400);
+
+      console.log("document ID: ", docRef.id);
+      setEreply("");
+    } catch (error) {
+      console.error("error editing doc: ", error);
+    }
+  }
+
+  // const [response, setResponse] = useState([]);
+  // setResponse(props.replies);
 
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>{props.message}</DialogTitle>
       <List sx={{ pt: 0 }}>
-        {emails.map((email) => (
+        {props.replies.map((email) => (
           <ListItem disableGutters>
             <ListItemButton>
               <ListItemAvatar>
@@ -40,24 +68,45 @@ function SimpleDialog(props) {
                   <PersonIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={email} />
+              <ListItemText primary={email} key={email} />
+              {/* <ListItemText primary={email} /> */}
+              {/* <ListItemText primary={props.replies} /> */}
             </ListItemButton>
           </ListItem>
         ))}
-
         <ListItem disableGutters>
+          <TextField
+            hiddenLabel
+            id="standard-textarea"
+            label="Join the Conversation"
+            placeholder="Type here.."
+            multiline
+            variant="standard"
+            value={ereply}
+            sx={{
+              width: { sm: 400, md: 405 },
+              marginLeft: 4,
+            }}
+            onChange={(e) => setEreply(e.target.value)}
+          />
+          <ListItemButton autoFocus onClick={() => addreply()}>
+            <ListItemAvatar sx={{ marginLeft: 2, marginRight: -3 }}>
+              <Avatar>
+                <SendIcon />
+              </Avatar>
+            </ListItemAvatar>
+          </ListItemButton>
           <ListItemButton
             autoFocus
             onClick={() => handleListItemClick("addAccount")}
           >
-            <ListItemAvatar>
+            <ListItemAvatar sx={{ marginRight: -2 }}>
               <Avatar>
-                <AddIcon />
+                <CloseFullscreenIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="Close" />
           </ListItemButton>
-        </ListItem>
+        </ListItem>{" "}
       </List>
     </Dialog>
   );
@@ -84,11 +133,8 @@ export default function SimpleDialogDemo(props) {
 
   return (
     <div>
-      {/* <Typography variant="subtitle1" component="div">
-        <ForumIcon />
-      </Typography> */}
       <br />
-      <Button onClick={handleClickOpen}>
+      <Button style={{ color: "white" }} onClick={handleClickOpen}>
         <ForumIcon />
       </Button>
       <SimpleDialog
@@ -97,6 +143,8 @@ export default function SimpleDialogDemo(props) {
         onClose={handleClose}
         message={props.message}
         replies={props.replies}
+        date={props.date}
+        eventid={props.eventid}
       />
     </div>
   );

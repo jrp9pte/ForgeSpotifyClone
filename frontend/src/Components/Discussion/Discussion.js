@@ -3,9 +3,14 @@ import React from "react";
 import RowAndColumnSpacing from "./RowAndColumnSpacing.js";
 
 function Discussion() {
+  const centerDivStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+  };
   return (
-    <div className="all">
-      <div></div>
+    <div styles={centerDivStyle}>
       <RowAndColumnSpacing />
       {/* <Alldiss /> */}
     </div>

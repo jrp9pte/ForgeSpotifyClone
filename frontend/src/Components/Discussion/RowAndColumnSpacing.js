@@ -3,9 +3,9 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import { useEffect, React, useState } from "react";
-import "react-calendar/dist/Calendar.css";
 import Alldiss from "./Alldiss.js";
 import FormDialog from "./FormDialog.js";
+import { Container } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -17,10 +17,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function RowAndColumnSpacing() {
   return (
-    <Box sx={{ width: "100%", marginTop: 15 }}>
+    // <Container maxWidth="lg">
+    <Box sx={{ width: "100%", marginBottom: 15 }}>
       <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2 }}>
         <Grid item xs={8}>
-          <Item style={{ backgroundColor: "#D79F88" }}>
+          <Item style={{ backgroundColor: "#BB623E" }}>
             {" "}
             <div>
               <Alldiss />
@@ -29,5 +30,6 @@ export default function RowAndColumnSpacing() {
         </Grid>
       </Grid>
     </Box>
+    // </Container>
   );
 }

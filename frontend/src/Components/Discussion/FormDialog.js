@@ -19,9 +19,12 @@ export default function FormDialog() {
   async function addEventdb() {
     try {
       const docRef = await addDoc(collection(db, "Disspost"), {
-        date: "01/01/01", //edate,
+        date: "June 2, 2023", //edate,
         message: emessage,
-        user: "ap", //euser,
+        user: "Zaidddd", //euser,
+        replies: [],
+        zdel: "Delete",
+        zmes: "Are you sure you want to delete this post?",
       });
       setOpen(false);
 
@@ -49,9 +52,9 @@ export default function FormDialog() {
   return (
     <div>
       <Button
-        variant="outlined"
+        // shadow="white "
         onClick={handleClickOpen}
-        style={{ backgroundColor: "white" }}
+        style={{ color: "white" }}
       >
         <PostAddIcon />
       </Button>

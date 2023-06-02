@@ -74,7 +74,11 @@ function Profile() {
         <UserNameAndAvatar />
       </Box>
       <Settings state={state} dispatch={(obj) => dispatch(obj)} />
-      <h1>{selectedData.display_name}'s Music</h1>
+      {state.showTopArtists || state.showTopSongs || state.showLikedSongs ? (
+        <h1>{selectedData.display_name}'s Music</h1>
+      ) : (
+        <h1>{selectedData.display_name}'s Music is Hidden</h1>
+      )}
       {state.showTopArtists && (
         <>
           <h2>My Top 8 Artists</h2>

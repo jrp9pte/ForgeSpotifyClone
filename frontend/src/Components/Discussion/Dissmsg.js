@@ -5,7 +5,6 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -17,16 +16,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { withTheme } from "@emotion/react";
 import ForumIcon from "@mui/icons-material/Forum";
 import Dissreplies from "./Dissreplies";
+import DeleteFormDialog from "./DeleteFormDialog";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+})(({ theme }) => ({
   marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
 }));
 
 export default function Dissmsg(props) {
@@ -37,42 +33,40 @@ export default function Dissmsg(props) {
   };
 
   return (
-    <Card sx={{ minWidth: 700, bgcolor: "#252525" }}>
+    <Card sx={{ width: "100%", bgcolor: "#252525" }}>
       <CardHeader
-        sx={{ minWidth: 700, text: { primary: "white" } }}
+        sx={{ width: "auto", text: { primary: "white" } }}
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>
         }
         action={
           <IconButton aria-label="settings" sx={{ color: "white" }}>
-            <MoreVertIcon />
+            {/* <MoreVertIcon /> */}
+            <DeleteFormDialog
+              eventID={props.eventid}
+              zdel={props.zdel}
+              zmes={props.zmes}
+            />
           </IconButton>
         }
-        titleTypographyProps={{ color: "white" }}
+        titleTypographyProps={{ color: "gray" }}
         title={props.user}
-        subheaderTypographyProps={{ color: "white" }}
-        subheader="September 14, 2016"
+        subheaderTypographyProps={{ color: "gray" }}
+        subheader={props.date}
       />
-
       <CardContent>
         <Typography variant="body2" sx={{ color: "white" }}>
           {props.message}
         </Typography>
-        <Typography variant="body2" sx={{ color: "white" }}>
-          {props.replies}
-        </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" sx={{ color: "white" }}>
-          <FavoriteIcon />
-        </IconButton>
-
+      <CardActions sx={{ marginLeft: "auto" }}>
         <ExpandMore>
           <Dissreplies
             user={props.user}
             message={props.message}
             replies={props.replies}
             eventid={props.eventid}
+            date={props.date}
           />
         </ExpandMore>
       </CardActions>

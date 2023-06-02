@@ -5,6 +5,8 @@ import NewReleases from "./newReleases"
 import Discussion from "../Discussion/Discussion"
 import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material"
 import Messages from "../Messages/Messages"
+import Discussion from "../Discussion/Discussion";
+
 const Discover = () => {
 	const [showMessages, setShowMessages] = useState(false)
 
