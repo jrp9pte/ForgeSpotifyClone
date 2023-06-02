@@ -10,8 +10,9 @@ function IndividualMessage({ user, switchToAllMessages }) {
 	return (
 		<Box
 			fullWidth
+			backgroundColor='white'
 			sx={{
-				height: "550px",
+				height: "450px",
 				borderStyle: "solid",
 			}}
 		>
@@ -32,9 +33,9 @@ function IndividualMessage({ user, switchToAllMessages }) {
 				<Typography variant="h6">{user}</Typography>
 			</Box>
 			<Conversation user={user} />
-			<Box>
+			<Box fullWidth pt='10px' mt='20px' mx="calc(50px + 1vw)" sx={{ backgroundColor: 'white' }}>
 				<TextField
-					width="200%"
+					sx={{ width: '80%' }}
 					variant="standard"
 					onChange={(e) => setNewMessage(e.target.value)}
 					placeholder="Enter a Message"

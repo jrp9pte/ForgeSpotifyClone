@@ -3,7 +3,7 @@ import Users from "./Users"
 import TopArtists from "./topArtists"
 import NewReleases from "./newReleases"
 import Discussion from "../Discussion/Discussion"
-import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material"
+import { Box, Container, ToggleButton, ToggleButtonGroup } from "@mui/material"
 import Messages from "../Messages/Messages"
 
 const Discover = () => {
@@ -17,13 +17,29 @@ const Discover = () => {
 			<h2>New Releases</h2>
 			<NewReleases />
 
-			<Box sx={{mt: '80px'}}>
-				<ToggleButtonGroup exclusive>
-					<ToggleButton selected={!showMessages} onClick={() => setShowMessages(false)}>Forums</ToggleButton>
-					<ToggleButton selected={showMessages} onClick={() => setShowMessages(true)}>Messages</ToggleButton>
-				</ToggleButtonGroup>
-			</Box>
-			{showMessages ? <Messages /> : <Discussion />}
+			<Container maxWidth="lg">
+				<Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: "80px" }}>
+					<ToggleButtonGroup exclusive sx={{pl: '30px'}}>
+						<ToggleButton
+							selected={!showMessages}
+							onClick={() => setShowMessages(false)}
+							backgrounColor='#BB623E'
+							sx={{
+								backgrounColor: '#BB623E'
+							}}
+						>
+							Forums
+						</ToggleButton>
+						<ToggleButton
+							selected={showMessages}
+							onClick={() => setShowMessages(true)}
+						>
+							Messages
+						</ToggleButton>
+					</ToggleButtonGroup>
+				</Box>
+				{showMessages ? <Messages /> : <Discussion />}
+			</Container>
 		</div>
 	)
 }
