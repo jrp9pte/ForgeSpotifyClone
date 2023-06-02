@@ -7,7 +7,6 @@ function Discussion() {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
   };
   return (
     <div styles={centerDivStyle}>

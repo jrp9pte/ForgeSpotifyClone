@@ -17,13 +17,13 @@ const Discover = () => {
 			<h2>New Releases</h2>
 			<NewReleases />
 
-			<Box>
+			<Box sx={{mt: '80px'}}>
 				<ToggleButtonGroup exclusive>
 					<ToggleButton selected={!showMessages} onClick={() => setShowMessages(false)}>Forums</ToggleButton>
 					<ToggleButton selected={showMessages} onClick={() => setShowMessages(true)}>Messages</ToggleButton>
 				</ToggleButtonGroup>
-				{showMessages ? <Messages /> : <Discussion />}
 			</Box>
+			{showMessages ? <Messages /> : <Discussion />}
 		</div>
 	)
 }
