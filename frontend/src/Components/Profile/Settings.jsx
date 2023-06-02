@@ -144,14 +144,7 @@ const Settings = ({ state, dispatch }) => {
           </Stack>
         </ListItem>
       </List>
-      <div style={{ height: "250px", overflow: "auto" }}>
-        {selectedData.map((user, index) => (
-          <div key={index}>
-            <Typography>{user.username || user.email}</Typography>
-            <Typography>{user.public ? "Public" : "Private"}</Typography>
-          </div>
-        ))}
-      </div>
+      
     </Dialog>
   );
 };
