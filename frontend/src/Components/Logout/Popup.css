@@ -11,26 +11,27 @@
 }
 .popup-inner{
     position: relative;
-    padding: 32px;
+    padding: 20px;
     width: 50%;
     max-width: 640px;
     background-color: #FFF;
     border-radius: 20px;
 }
 
-.popup-inner .close-btn{
-    position: absolute;
-    top: 16px;
-    right: 16px;
-}
 
-.popup-inner .logout-btn{
-    position: absolute;
-    left: 50%;
-}
+
+.popup-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30%;
+  }
+  
 
 .close-btn {
     border: none;
+    margin-top: 25px;
     border-radius: 5px;
     padding: 10px;
     background-color: rgb( 215, 159, 136);
@@ -50,6 +51,7 @@
     border: none;
     border-radius: 5px;
     padding: 10px;
+    margin-bottom: 10px;
     background-color: rgb( 215, 159, 136);
     color: #eee;
     cursor: pointer;
