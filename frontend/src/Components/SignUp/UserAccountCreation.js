@@ -35,7 +35,7 @@ function UserAccountCreation() {
                     }
                 ).then((res)=>{
                     if (res.data === "created!"){
-                        window.location.href = "http://localhost:3000/login"
+                        window.location.href = "http://localhost:3000"
                     }
                     else { // Need to display to UI that email already exists
                         alert("EMAIL EXISTS ALREADY")

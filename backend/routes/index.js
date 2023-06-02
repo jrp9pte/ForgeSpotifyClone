@@ -94,9 +94,9 @@ router.post('/login', async(req,res)=>{
             access_token: data.access_token
           }
           updateDoc(docref,update)
-          
+
           res.send(result)
-          
+
           // Using new access token, call to spotify and grab username to save to doc
 
         })
@@ -213,7 +213,7 @@ router.post("/sendMessage", async(req,res)=>{
   else{
     console.log("DNE")
   }
-}) 
+})
 
 router.post("/getMessageReference", async(req,res)=>{
     const {uid, access_token, username} = req.body;
@@ -230,7 +230,7 @@ router.post("/getMessageReference", async(req,res)=>{
     // for(let i =0; i < messageArray.length; ++i){
     //   console.log(messageArray[i].field)
     // }
-    
+
     messageArray.forEach(function(item){
       for (var key in item){
         if (key === username){
@@ -241,6 +241,7 @@ router.post("/getMessageReference", async(req,res)=>{
         }
       }
     })
+
 
 })
 
