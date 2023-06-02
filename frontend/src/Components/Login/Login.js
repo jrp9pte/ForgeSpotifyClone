@@ -176,14 +176,14 @@ function Login() {
 						</FormControl>
 					</Box>
 				</div>
-				<div style={{ display: "flex", justifyContent: "center" }}>
+				<div style={{ display: "flex", justifyContent: "center" , margin:"1.5REM"}}>
 					<ThemeProvider theme={theme}>
-						<Button variant="contained" onClick={handleLogin}>
+						<Button variant="contained" onClick={handleLogin} size="large">
 							Login
 						</Button>
 					</ThemeProvider>
 				</div>
-				<a href="http://localhost:3000/signup">Don't have an account? Sign Up here.</a>
+				<a href="http://localhost:3000/signup" >Don't have an account? Sign Up here.</a>
 			</form>
 		</>
 	)
