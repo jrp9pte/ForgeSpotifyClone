@@ -18,7 +18,11 @@ import { UserContext } from "./UserProvider"
 
 function Login() {
 	const { user, setUser } = useContext(UserContext)
-
+	useEffect(()=>{
+		if (window.localStorage.getItem("currentUserAT") || window.localStorage.getItem("currentUserUID")){
+			window.location.href="http://localhost:3000/discover"
+		}
+	})
 	const theme = createTheme({
 		status: {
 			danger: "#e53e3e",
@@ -162,6 +166,7 @@ function Login() {
 						</Button>
 					</ThemeProvider>
 				</div>
+				<a href="http://localhost:3000/signup">Don't have an account? Sign Up here.</a>
 			</form>
 		</>
 	)

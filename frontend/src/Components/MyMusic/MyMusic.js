@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import MyTopArtists from "./MyTopArtists";
 import MyLikedSongs from "./MyLikedSongs";
 import MyTopTracks from "./MyTopTracks";
 import { Dialog, DialogTitle, DialogContent, Button } from "@mui/material";
 const MyMusic = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  useEffect(()=>{
+		if (!window.localStorage.getItem("currentUserAT") || !window.localStorage.getItem("currentUserUID")){
+			window.location.href="http://localhost:3000"
+		}
+	})
   const toggleDialog = () => {
     setIsDialogOpen(!isDialogOpen);
   };

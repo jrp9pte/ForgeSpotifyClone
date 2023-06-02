@@ -9,6 +9,7 @@ import TopArtists from "./Components/Discover/topArtists"
 import Discover from "./Components/Discover/Discover"
 import MyMusic from "./Components/MyMusic/MyMusic"
 import UserProvider from "./Components/Login/UserProvider"
+import Logout from "./Components/Logout/Logout"
 
 function App() {
 	return (
@@ -18,13 +19,14 @@ function App() {
 				<Routes>
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/my-music" element={<MyMusic />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/" element={<Discover />} />
+					<Route path="/" element={<Login />} />
+					<Route path="/discover" element={<Discover />} />
 					<Route path="/signup" element={<SignUp />} />
 					<Route
 						path="/accountcreation"
 						element={<UserAccountCreation />}
 					/>
+					<Route path="/logout" element = {<Logout/>}/>
 				</Routes>
 				{/* <TopArtists></TopArtists> */}
 			</div>

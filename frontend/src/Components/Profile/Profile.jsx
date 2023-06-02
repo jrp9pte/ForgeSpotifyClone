@@ -11,6 +11,13 @@ import React, { useState, useEffect, useContext, useReducer } from "react";
 import { UserContext } from "../Login/UserProvider";
 
 function Profile() {
+  useEffect(()=>{
+		if (!window.localStorage.getItem("currentUserAT") || !window.localStorage.getItem("currentUserUID")){
+			window.location.href="http://localhost:3000"
+		}
+	})
+
+
   const { user } = useContext(UserContext);
   const API_URL = "http://localhost:9000";
   const [selectedData, setSelectedData] = useState([]);
