@@ -1,4 +1,11 @@
-import { Grid, Card, CardContent, Typography } from "@mui/material";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Container,
+  CardMedia,
+} from "@mui/material";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
@@ -21,27 +28,29 @@ const Users = () => {
 
   return (
     <div style={{ height: "250px", overflow: "auto" }}>
-      <Grid container spacing={2}>
-        {selectedData.map((user, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card
-              style={{
-                marginBottom: "10px",
-                marginLeft: "10px",
-                marginRight: "10px",
-                backgroundColor: "#bb623e",
-                color: "#e4eef6",
-              }}
-            >
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {user.username || user.email}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <Container maxWidth="lg">
+        {" "}
+        <Grid container spacing={1}>
+          {selectedData.map((user, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <Card
+                style={{
+                  height: "100%",
+                  marginBottom: "10px",
+                  backgroundColor: "#bb623e",
+                  color: "#e4eef6",
+                }}
+              >
+                <CardContent style={{ flexGrow: 1 }}>
+                  <Typography variant="h5" component="h2">
+                    {user.username || user.email}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>{" "}
+      </Container>
     </div>
   );
 };
