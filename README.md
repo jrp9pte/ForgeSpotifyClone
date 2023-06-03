@@ -1,4 +1,4 @@
-# ForgeSpotifyClone
+# SpotifySocial
 
 ForgeSpotifyClone is a web application that serves as a bridge between Spotify and social media, allowing users to engage with music and connect with others who share their passion for music. The application utilizes React, Express, Spotify data, and Firebase to provide a seamless user experience. 
 
