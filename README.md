@@ -43,3 +43,8 @@ The ForgeSpotifyClone application offers the following functionalities:
 - The application provides a search function to find forums by name.
 - Users can like forum posts.
 - Users can get track recommedations on the discover page
+
+## Demo
+<img align="left" width="400" height="300" src="https://github.com/jrp9pte/jrp9pte/blob/main/SpotifySocial.gif">
+
+
