@@ -46,5 +46,8 @@ The ForgeSpotifyClone application offers the following functionalities:
 
 ## Demo
 <img align="left" width="400" height="300" src="https://github.com/jrp9pte/jrp9pte/blob/main/SpotifySocial.gif">
+<img align="left" width="400" height="300" src="https://github.com/jrp9pte/jrp9pte/blob/main/SpotifySocial(480).gif">
+
+
 
 
